@@ -18,4 +18,7 @@ public class Strings {
     //Strings Connection Factory
     public static String bancoNaoEncontrado = "Ocorreu um erro com o banco de dados, por favor entrar em contato com o administrador";
     public static String classeJdbc = "Ocorreu um erro com a classe jdbc, por favor entrar em contato com o administrador";
+    
+    //Strings Dao
+    public static String usuarioExistente = "Este nome de usuário já esta cadastrado no sistema, por favor selecione outro";
 }

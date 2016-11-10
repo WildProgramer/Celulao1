@@ -12,6 +12,7 @@ import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 import model.Funcionario;
 import model.Strings;
+import model.Usuario;
 
 /**
  *
@@ -20,7 +21,7 @@ import model.Strings;
 public class Login extends javax.swing.JFrame {
 
     private TelaPrincipal telaPrincipal = new TelaPrincipal();
-    private Funcionario funcionario = new Funcionario();
+    private Usuario funcionario = new Usuario();
     
     
     
@@ -309,8 +310,13 @@ public class Login extends javax.swing.JFrame {
         funcionario.setCpf(Integer.valueOf(cadastraCpfTextField.getText()));
         funcionario.setEndereco(cadastraEnderecoTextField.getText());
         funcionario.setDataAdmissao(cadastraDataAdmissaoTextField.getText());
+        funcionario.setCargo(String.valueOf(cadastraCargoBox.getSelectedItem()));
+        funcionario.setMatricula(Integer.valueOf(cadastraMatriculaTextField.getText()));
+        funcionario.setUsuario(cadastraUsuarioTextField.getText());
+        funcionario.setSenha(cadastraSenhaTextField.getText());
         funcionarioDAO.inserirFuncionario(funcionario);
         
+          
         
 
     }//GEN-LAST:event_cadastrarFBtnActionPerformed

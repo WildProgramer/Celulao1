@@ -6,13 +6,14 @@
 package dao;
 
 import model.Funcionario;
+import model.Usuario;
 
 /**
  *
  * @author Norb7492
  */
 public interface FuncionarioDAO {
-    public void inserirFuncionario(Funcionario f);
+    public void inserirFuncionario(Usuario u);
     public void selecionarFuncionario(String nome);
     
     
