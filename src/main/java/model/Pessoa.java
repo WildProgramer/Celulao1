@@ -7,7 +7,7 @@ public class Pessoa {
     
     private long idPessoa;
     private String nome;
-    private String cpf;
+    private int cpf;
     private String endereco;
 
     public long getIdPessoa() {
@@ -26,11 +26,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getCpf() {
+    public int getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(int cpf) {
         this.cpf = cpf;
     }
 
