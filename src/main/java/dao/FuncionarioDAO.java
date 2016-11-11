@@ -14,7 +14,7 @@ import model.Usuario;
  */
 public interface FuncionarioDAO {
     public void inserirFuncionario(Usuario u);
-    public void selecionarFuncionario(String nome);
+    public boolean selecionarFuncionario(Usuario u);
     
     
 }

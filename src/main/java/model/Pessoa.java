@@ -7,9 +7,20 @@ public class Pessoa {
     
     private long idPessoa;
     private String nome;
-    private int cpf;
+    private long cpf;
+    private long cnpj;
     private String endereco;
 
+    public long getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(long cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    
+    
     public long getIdPessoa() {
         return idPessoa;
     }
@@ -26,11 +37,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public int getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 
@@ -41,7 +52,11 @@ public class Pessoa {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+  
     
+    
+
     
     
         

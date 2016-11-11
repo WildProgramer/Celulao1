@@ -5,14 +5,18 @@
  */
 package view;
 
+import controller.ConversorDeDadosController;
 import dao.JDBCFuncionarioDAO;
 import factory.ConnectionFactory;
 import java.awt.CardLayout;
-import java.text.NumberFormat;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JOptionPane;
-import model.Funcionario;
+
 import model.Strings;
 import model.Usuario;
+import sqlite.SqliteHelper;
+import sqlite.SqliteUsuariosAdapter;
 
 /**
  *
@@ -22,9 +26,11 @@ public class Login extends javax.swing.JFrame {
 
     private TelaPrincipal telaPrincipal = new TelaPrincipal();
     private Usuario funcionario = new Usuario();
-    
-    
-    
+    private Usuario funcionario2 = new Usuario();
+    private ConversorDeDadosController dadosController = new ConversorDeDadosController();
+    private JDBCFuncionarioDAO funcionarioDAO = new JDBCFuncionarioDAO();
+    private SqliteUsuariosAdapter sqliteUsuariosAdapter = new SqliteUsuariosAdapter();
+
     /**
      * Creates new form Login
      */
@@ -45,9 +51,11 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLoginPanel = new javax.swing.JPanel();
         nomeLabel = new javax.swing.JLabel();
-        nomeTextField = new javax.swing.JTextField();
+        usuarioLoginTextField = new javax.swing.JTextField();
         entrarBtn = new javax.swing.JButton();
         cadastrarBtn = new javax.swing.JButton();
+        nomeLabel1 = new javax.swing.JLabel();
+        senhaLoginTextField = new javax.swing.JPasswordField();
         jCadastrarPanel = new javax.swing.JPanel();
         voltarBtn = new javax.swing.JButton();
         cadastroNomeLabel = new javax.swing.JLabel();
@@ -57,16 +65,16 @@ public class Login extends javax.swing.JFrame {
         cadastraCargoLabel = new javax.swing.JLabel();
         cadastraMatriculaLabel = new javax.swing.JLabel();
         cadastraDataAdmissaoLabel = new javax.swing.JLabel();
-        cadastraCpfTextField = new javax.swing.JTextField();
         cadastraNomeTextField = new javax.swing.JTextField();
         cadastraEnderecoTextField = new javax.swing.JTextField();
-        cadastraDataAdmissaoTextField = new javax.swing.JTextField();
         cadastraMatriculaTextField = new javax.swing.JTextField();
         cadastrarFBtn = new javax.swing.JButton();
         cadastraUsuarioLabe = new javax.swing.JLabel();
         cadastraSenhaLabel = new javax.swing.JLabel();
         cadastraUsuarioTextField = new javax.swing.JTextField();
         cadastraSenhaTextField = new javax.swing.JTextField();
+        cadastraCpfTextField = new javax.swing.JFormattedTextField();
+        dateChooser = new com.toedter.calendar.JDateChooser();
 
         jButton1.setText("jButton1");
 
@@ -74,7 +82,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.CardLayout());
 
-        nomeLabel.setText("Nome:");
+        nomeLabel.setText("Usuário:");
 
         entrarBtn.setText("Entrar");
         entrarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -90,21 +98,32 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        nomeLabel1.setText("Senha:");
+
+        senhaLoginTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                senhaLoginTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jLoginPanelLayout = new javax.swing.GroupLayout(jLoginPanel);
         jLoginPanel.setLayout(jLoginPanelLayout);
         jLoginPanelLayout.setHorizontalGroup(
             jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLoginPanelLayout.createSequentialGroup()
                 .addGap(65, 65, 65)
-                .addComponent(nomeLabel)
+                .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nomeLabel)
+                    .addComponent(nomeLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jLoginPanelLayout.createSequentialGroup()
                         .addComponent(entrarBtn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cadastrarBtn))
-                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                    .addComponent(usuarioLoginTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
+                    .addComponent(senhaLoginTextField))
+                .addContainerGap(106, Short.MAX_VALUE))
         );
         jLoginPanelLayout.setVerticalGroup(
             jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,12 +131,16 @@ public class Login extends javax.swing.JFrame {
                 .addGap(116, 116, 116)
                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nomeLabel)
-                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44)
+                    .addComponent(usuarioLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nomeLabel1)
+                    .addComponent(senhaLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
                 .addGroup(jLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(entrarBtn)
                     .addComponent(cadastrarBtn))
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         jPanel1.add(jLoginPanel, "login");
@@ -148,10 +171,14 @@ public class Login extends javax.swing.JFrame {
 
         cadastraDataAdmissaoLabel.setText("Data Admissão:");
 
-        cadastraCpfTextField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        cadastraCpfTextField.addActionListener(new java.awt.event.ActionListener() {
+        cadastraMatriculaTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastraCpfTextFieldActionPerformed(evt);
+                cadastraMatriculaTextFieldActionPerformed(evt);
+            }
+        });
+        cadastraMatriculaTextField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cadastraMatriculaTextFieldKeyTyped(evt);
             }
         });
 
@@ -178,6 +205,19 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        try {
+            cadastraCpfTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        cadastraCpfTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastraCpfTextFieldActionPerformed(evt);
+            }
+        });
+
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+
         javax.swing.GroupLayout jCadastrarPanelLayout = new javax.swing.GroupLayout(jCadastrarPanel);
         jCadastrarPanel.setLayout(jCadastrarPanelLayout);
         jCadastrarPanelLayout.setHorizontalGroup(
@@ -201,16 +241,15 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(cadastraUsuarioLabe, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cadastraSenhaLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(29, 29, 29)
-                        .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(cadastraCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cadastraNomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cadastraEnderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cadastraMatriculaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cadastraDataAdmissaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cadastraUsuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cadastraSenhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cadastraCargoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cadastraNomeTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(cadastraEnderecoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(cadastraMatriculaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(cadastraUsuarioTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(cadastraSenhaTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(cadastraCargoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cadastraCpfTextField)
+                            .addComponent(dateChooser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(78, 78, 78))))
         );
         jCadastrarPanelLayout.setVerticalGroup(
@@ -220,11 +259,11 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastroNomeLabel)
                     .addComponent(cadastraNomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastraCpfLabel)
                     .addComponent(cadastraCpfTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                .addGap(18, 18, 18)
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastraEnderecoLabel)
                     .addComponent(cadastraEnderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -232,23 +271,23 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastraCargoLabel)
                     .addComponent(cadastraCargoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastraMatriculaLabel)
                     .addComponent(cadastraMatriculaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cadastraDataAdmissaoLabel)
-                    .addComponent(cadastraDataAdmissaoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14)
+                    .addComponent(dateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastraUsuarioLabe)
                     .addComponent(cadastraUsuarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addGap(18, 18, 18)
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastraSenhaLabel)
                     .addComponent(cadastraSenhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addGroup(jCadastrarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cadastrarFBtn)
                     .addComponent(voltarBtn))
@@ -265,7 +304,7 @@ public class Login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -273,22 +312,37 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void entrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarBtnActionPerformed
-        if(nomeTextField.getText().isEmpty()){
-            
-            
-            JOptionPane.showMessageDialog(null, Strings.inserir);
-        }else{
-            telaPrincipal.setVisible(true);
-            this.setVisible(false);
-            
-            
-        }
+        
+        boolean validado = false;
+        if(usuarioLoginTextField.getText().isEmpty() || senhaLoginTextField.getText().isEmpty()){
+                    
+                    
+                    JOptionPane.showMessageDialog(null, Strings.inserir);
+                }else{
+                    
+                
+                funcionario2.setUsuario(usuarioLoginTextField.getText());
+                funcionario2.setSenha(senhaLoginTextField.getText());
+               validado =  funcionarioDAO.selecionarFuncionario(funcionario2);
+                
+                if(validado == true){
+                    
+                    telaPrincipal.setVisible(true);
+                    this.setVisible(false);
+                }
+                    
+                    
+                }
+
+    
+//        funcionario2.setUsuario("norb7492");
+//        sqliteUsuariosAdapter.inserirUsuario(funcionario2);
     }//GEN-LAST:event_entrarBtnActionPerformed
 
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.show(jPanel1, "cadastrar");
-        
+
     }//GEN-LAST:event_cadastrarBtnActionPerformed
 
     private void voltarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarBtnActionPerformed
@@ -300,24 +354,45 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cadastraCargoBoxActionPerformed
 
-    private void cadastraCpfTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastraCpfTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cadastraCpfTextFieldActionPerformed
-
     private void cadastrarFBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarFBtnActionPerformed
-        JDBCFuncionarioDAO funcionarioDAO = new JDBCFuncionarioDAO();
-        funcionario.setNome(cadastraNomeTextField.getText());
-        funcionario.setCpf(Integer.valueOf(cadastraCpfTextField.getText()));
-        funcionario.setEndereco(cadastraEnderecoTextField.getText());
-        funcionario.setDataAdmissao(cadastraDataAdmissaoTextField.getText());
-        funcionario.setCargo(String.valueOf(cadastraCargoBox.getSelectedItem()));
-        funcionario.setMatricula(Integer.valueOf(cadastraMatriculaTextField.getText()));
-        funcionario.setUsuario(cadastraUsuarioTextField.getText());
-        funcionario.setSenha(cadastraSenhaTextField.getText());
-        funcionarioDAO.inserirFuncionario(funcionario);
-        
-          
-        
+
+        try {
+
+            String nome = cadastraNomeTextField.getText();
+            long cpf = dadosController.converterCpf(cadastraCpfTextField);
+            String endereco = cadastraEnderecoTextField.getText();
+            String data = dadosController.converterData(dateChooser);
+            String cargo = String.valueOf(cadastraCargoBox.getSelectedItem());
+            int matricula = Integer.valueOf(cadastraMatriculaTextField.getText());
+            String usuario = cadastraUsuarioTextField.getText();
+            String senha = cadastraSenhaTextField.getText();
+            if (nome.trim().isEmpty() || String.valueOf(cpf).isEmpty()
+                    || endereco.isEmpty() || data.isEmpty() || cargo.isEmpty()
+                    || String.valueOf(matricula).isEmpty() || usuario.isEmpty() || senha.isEmpty()) {
+
+                JOptionPane.showMessageDialog(null, Strings.preecherCampos);
+
+            } else {
+
+                funcionario.setNome(nome);
+                funcionario.setCpf(cpf);
+                funcionario.setEndereco(endereco);
+                funcionario.setDataAdmissao(data);
+                funcionario.setCargo(cargo);
+                funcionario.setMatricula(matricula);
+                funcionario.setUsuario(usuario);
+                funcionario.setSenha(senha);
+                funcionarioDAO.inserirFuncionario(funcionario);
+            }
+        } catch (NullPointerException e) {
+
+            JOptionPane.showMessageDialog(null, Strings.dataErrada);
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(null, Strings.preecherCampos);
+        }
+
 
     }//GEN-LAST:event_cadastrarFBtnActionPerformed
 
@@ -328,6 +403,32 @@ public class Login extends javax.swing.JFrame {
     private void cadastraSenhaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastraSenhaTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cadastraSenhaTextFieldActionPerformed
+
+    private void cadastraMatriculaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastraMatriculaTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastraMatriculaTextFieldActionPerformed
+
+    private void cadastraCpfTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastraCpfTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastraCpfTextFieldActionPerformed
+
+    private void cadastraMatriculaTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cadastraMatriculaTextFieldKeyTyped
+        char c = evt.getKeyChar();
+        if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || c == KeyEvent.VK_DELETE)) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+
+        if (cadastraMatriculaTextField.getText().length() >= 6) {
+            getToolkit().beep();
+            evt.consume();
+        }
+    }//GEN-LAST:event_cadastraMatriculaTextFieldKeyTyped
+
+    private void senhaLoginTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaLoginTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_senhaLoginTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -360,18 +461,19 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
+                System.out.println("Rodou aqui ja");
+                SqliteHelper.criarTabelaUsuario();
             }
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cadastraCargoBox;
     private javax.swing.JLabel cadastraCargoLabel;
     private javax.swing.JLabel cadastraCpfLabel;
-    private javax.swing.JTextField cadastraCpfTextField;
+    private javax.swing.JFormattedTextField cadastraCpfTextField;
     private javax.swing.JLabel cadastraDataAdmissaoLabel;
-    private javax.swing.JTextField cadastraDataAdmissaoTextField;
     private javax.swing.JLabel cadastraEnderecoLabel;
     private javax.swing.JTextField cadastraEnderecoTextField;
     private javax.swing.JLabel cadastraMatriculaLabel;
@@ -384,14 +486,16 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton cadastrarBtn;
     private javax.swing.JButton cadastrarFBtn;
     private javax.swing.JLabel cadastroNomeLabel;
+    private com.toedter.calendar.JDateChooser dateChooser;
     private javax.swing.JButton entrarBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jCadastrarPanel;
     private javax.swing.JPanel jLoginPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nomeLabel;
-    private javax.swing.JTextField nomeTextField;
+    private javax.swing.JLabel nomeLabel1;
+    private javax.swing.JPasswordField senhaLoginTextField;
+    private javax.swing.JTextField usuarioLoginTextField;
     private javax.swing.JButton voltarBtn;
     // End of variables declaration//GEN-END:variables
 }
-

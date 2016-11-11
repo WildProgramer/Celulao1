@@ -8,7 +8,6 @@ package factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.TimeZone;
 import javax.swing.JOptionPane;
 import model.Strings;
 
@@ -29,12 +28,14 @@ public class ConnectionFactory {
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null, Strings.bancoNaoEncontrado);
             System.out.println(ex);
+            return null;
             
     }catch(ClassNotFoundException ex){
             JOptionPane.showMessageDialog(null, Strings.classeJdbc);
+            return null;
         
     }
-        return null;
+        
      
         
         
