@@ -18,7 +18,7 @@ public class ConversorDeDadosController {
     
        public long converterCpf(JTextField cpfContainer){
            
-                  String cpf1 = cpfContainer.getText().replaceAll("\\.", "").replaceAll("\\-", "");
+                  String cpf1 = cpfContainer.getText().replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\/", "");
                   String cpf2 = cpf1.trim();
                   
                   return Long.valueOf(cpf2);

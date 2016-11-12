@@ -95,6 +95,7 @@ public class LoginController {
             if (validado == true) {
 
                 telaPrincipal.setVisible(true);
+                
                 new Login().setVisible(false);
             }
         

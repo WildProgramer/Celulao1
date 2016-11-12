@@ -6,6 +6,7 @@
 package view;
 
 import controller.TelaPrincipalController;
+import java.awt.CardLayout;
 
 /**
  *
@@ -21,8 +22,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
         System.out.println("here started");
-        controller.escolherTela(jPanel1);
-       
+        CardLayout cl = (CardLayout) jPanel1.getLayout();
+        cl.show(jPanel1, "bemvindo");
+        
+    
+
+
        
     }
 
@@ -38,12 +43,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jTecnico = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jAtendente = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jCadastrarUs = new javax.swing.JButton();
-        jTecnico = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jBemOk = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -54,6 +64,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem3.setText("jMenuItem3");
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addContainerListener(new java.awt.event.ContainerAdapter() {
             public void componentAdded(java.awt.event.ContainerEvent evt) {
@@ -62,41 +83,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jPanel1.setLayout(new java.awt.CardLayout());
-
-        jLabel1.setText("Atendente");
-
-        jCadastrarUs.setText("Cadastrar Cliente");
-        jCadastrarUs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCadastrarUsActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
-        jAtendente.setLayout(jAtendenteLayout);
-        jAtendenteLayout.setHorizontalGroup(
-            jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jAtendenteLayout.createSequentialGroup()
-                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jAtendenteLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
-                    .addGroup(jAtendenteLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jCadastrarUs)))
-                .addContainerGap(466, Short.MAX_VALUE))
-        );
-        jAtendenteLayout.setVerticalGroup(
-            jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jAtendenteLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
-                .addComponent(jCadastrarUs)
-                .addGap(115, 115, 115))
-        );
-
-        jPanel1.add(jAtendente, "atendente");
 
         jLabel2.setText("Técnico");
 
@@ -119,6 +105,79 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jTecnico, "tecnico");
         jTecnico.getAccessibleContext().setAccessibleName("");
+
+        jLabel1.setText("Atendente");
+
+        jCadastrarUs.setText("Cadastrar Cliente");
+        jCadastrarUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastrarUsActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Físico", "Jurídico" }));
+
+        javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
+        jAtendente.setLayout(jAtendenteLayout);
+        jAtendenteLayout.setHorizontalGroup(
+            jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAtendenteLayout.createSequentialGroup()
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1))
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jCadastrarUs)
+                        .addGap(18, 18, 18)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(383, Short.MAX_VALUE))
+        );
+        jAtendenteLayout.setVerticalGroup(
+            jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAtendenteLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCadastrarUs)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(115, 115, 115))
+        );
+
+        jPanel1.add(jAtendente, "atendente");
+
+        jLabel3.setText("Bem Vindos");
+
+        jBemOk.setText("Ok");
+        jBemOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBemOkActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(276, 276, 276)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jBemOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(jLabel3)
+                .addGap(68, 68, 68)
+                .addComponent(jBemOk)
+                .addContainerGap(200, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3, "bemvindo");
 
         jMenu1.setText("Arquivo");
 
@@ -164,9 +223,24 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formComponentAdded
 
     private void jCadastrarUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarUsActionPerformed
-        CadastrarCliente cadastrarCliente = new CadastrarCliente();
-        cadastrarCliente.setVisible(true);
+        CadastrarClienteFisico cadastrarClienteF = new CadastrarClienteFisico();
+        CadastrarClienteJuridico cadastrarClienteJ = new CadastrarClienteJuridico();
+        String tipo = String.valueOf(jComboBox1.getSelectedItem());
+        
+        if(tipo.equals("Físico")){
+            cadastrarClienteF.setVisible(true);
+           
+            
+        }else{
+            cadastrarClienteJ.setVisible(true);
+            
+        }
+        
     }//GEN-LAST:event_jCadastrarUsActionPerformed
+
+    private void jBemOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBemOkActionPerformed
+        controller.escolherTela(jPanel1);
+    }//GEN-LAST:event_jBemOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,9 +288,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jAtendente;
+    private javax.swing.JButton jBemOk;
     private javax.swing.JButton jCadastrarUs;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -225,6 +302,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jTecnico;
     // End of variables declaration//GEN-END:variables
 }

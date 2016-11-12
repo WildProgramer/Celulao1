@@ -6,6 +6,7 @@
 package controller;
 
 import java.awt.CardLayout;
+
 import javax.swing.JPanel;
 import sqlite.SqliteUsuariosAdapter;
 
@@ -13,15 +14,22 @@ import sqlite.SqliteUsuariosAdapter;
  *
  * @author Norb7492
  */
-public class TelaPrincipalController {
+public class TelaPrincipalController extends Thread {
     
     
       public  void escolherTela(JPanel jPanel1){
         SqliteUsuariosAdapter usuariosAdapter = new SqliteUsuariosAdapter();
         String cargo;
+        
+        
         cargo = usuariosAdapter.buscarUsuario();
-        String cargoLower = cargo.toLowerCase();
-        if(cargoLower.equals("atendente")){
+        System.out.println(cargo);
+        
+        if(cargo.equals("")){
+            
+            System.out.println("está nulo");
+        }else{
+        if(cargo.equals("Atendente")){
             
            CardLayout cl = (CardLayout) jPanel1.getLayout();
             cl.show(jPanel1, "atendente");
@@ -31,4 +39,20 @@ public class TelaPrincipalController {
             cl.show(jPanel1, "tecnico");
         }
     }
+      }
+      
+      
+      public void run(){
+          SqliteUsuariosAdapter usuariosAdapter = new SqliteUsuariosAdapter();
+          
+          while(usuariosAdapter.buscarUsuario().equals("")){
+              
+              System.out.println("Esta nulo ainda");
+              
+              
+          }
+          
+          System.out.println("Nao esta mais nulo");
+          
+      }
 }

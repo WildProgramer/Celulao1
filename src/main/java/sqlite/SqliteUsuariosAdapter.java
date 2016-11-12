@@ -121,6 +121,9 @@ public class SqliteUsuariosAdapter{
             System.out.println(ex.getMessage());
             
             
+        }catch (NullPointerException ex){
+
+            System.out.println("Esta nulo");
         }finally{
             
               try {
