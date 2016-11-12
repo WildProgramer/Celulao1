@@ -208,7 +208,13 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
         PreparedStatement getUsuario = null;
         ResultSet rs;
         
-        String SelectUsuario = "SELECT * FROM usuario WHERE usuario=? and senha=?";
+         String SelectUsuario = "SELECT usuario.usuario, cargo.cargo\n"
+                + "FROM usuario\n"
+                + "INNER JOIN funcionario\n"
+                + "ON usuario.funcionario_idFuncionario = funcionario.idFuncionario\n"
+                + "INNER JOIN cargo\n"
+                + "ON funcionario.cargo_idCargo = cargo.idCargo\n"
+                + "WHERE usuario.usuario = ? and usuario.senha = ?";
         
         try{
             
@@ -219,7 +225,8 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
             if(rs.next()){
                 SqliteUsuariosAdapter  adapter = new SqliteUsuariosAdapter();
                         
-                       adapter.inserirUsuario(rs.getString("usuario")); 
+                       adapter.inserirUsuario(rs.getString("usuario"), rs.getString("cargo")); 
+                    
                        return true;
                 
             }else{

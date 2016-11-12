@@ -5,19 +5,28 @@
  */
 package view;
 
+import controller.TelaPrincipalController;
+
 /**
  *
  * @author PC
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaPrincipal
-     */
+    
+   private TelaPrincipalController controller = new TelaPrincipalController();
+    
+    
+    
     public TelaPrincipal() {
         initComponents();
+        System.out.println("here started");
+        controller.escolherTela(jPanel1);
+       
+       
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,6 +37,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
+        jAtendente = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jCadastrarUs = new javax.swing.JButton();
+        jTecnico = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -36,7 +52,73 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem1.setText("jMenuItem1");
 
+        jMenuItem3.setText("jMenuItem3");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                formComponentAdded(evt);
+            }
+        });
+
+        jPanel1.setLayout(new java.awt.CardLayout());
+
+        jLabel1.setText("Atendente");
+
+        jCadastrarUs.setText("Cadastrar Cliente");
+        jCadastrarUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastrarUsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
+        jAtendente.setLayout(jAtendenteLayout);
+        jAtendenteLayout.setHorizontalGroup(
+            jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAtendenteLayout.createSequentialGroup()
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel1))
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jCadastrarUs)))
+                .addContainerGap(466, Short.MAX_VALUE))
+        );
+        jAtendenteLayout.setVerticalGroup(
+            jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jAtendenteLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addComponent(jCadastrarUs)
+                .addGap(115, 115, 115))
+        );
+
+        jPanel1.add(jAtendente, "atendente");
+
+        jLabel2.setText("Técnico");
+
+        javax.swing.GroupLayout jTecnicoLayout = new javax.swing.GroupLayout(jTecnico);
+        jTecnico.setLayout(jTecnicoLayout);
+        jTecnicoLayout.setHorizontalGroup(
+            jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jTecnicoLayout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel2)
+                .addContainerGap(552, Short.MAX_VALUE))
+        );
+        jTecnicoLayout.setVerticalGroup(
+            jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jTecnicoLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(jLabel2)
+                .addContainerGap(382, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jTecnico, "tecnico");
+        jTecnico.getAccessibleContext().setAccessibleName("");
 
         jMenu1.setText("Arquivo");
 
@@ -62,11 +144,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -76,6 +158,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void formComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_formComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formComponentAdded
+
+    private void jCadastrarUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarUsActionPerformed
+        CadastrarCliente cadastrarCliente = new CadastrarCliente();
+        cadastrarCliente.setVisible(true);
+    }//GEN-LAST:event_jCadastrarUsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -107,17 +198,33 @@ public class TelaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+          
                 new TelaPrincipal().setVisible(true);
+            
+                System.out.println("second started too");
+                   
+                
+                
             }
         });
     }
 
+ 
+  
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jAtendente;
+    private javax.swing.JButton jCadastrarUs;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jTecnico;
     // End of variables declaration//GEN-END:variables
 }

@@ -13,7 +13,7 @@ public class ConstansUsuario {
 
     private static String ID = "idUsuario";
     private static String USUARIO = "usuario";
-    private static String SENHA = "senha";
+    private static String CARGO = "cargo";
     private static String TABELA = "usuario";
 
     public static String criarTablea() {
@@ -25,6 +25,8 @@ public class ConstansUsuario {
         builder.append("id");
         builder.append(" INTEGER PRIMARY KEY AUTOINCREMENT, ");
         builder.append(USUARIO);
+        builder.append(" TEXT NOT NULL, ");
+        builder.append(CARGO);
         builder.append(" TEXT NOT NULL);");
 
         return builder.toString();
@@ -39,9 +41,10 @@ public class ConstansUsuario {
         return USUARIO;
     }
 
-    public static String getSENHA() {
-        return SENHA;
+    public static String getCARGO() {
+        return CARGO;
     }
+
 
     public static String getTABELA() {
         return TABELA;

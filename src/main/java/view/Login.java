@@ -5,18 +5,11 @@
  */
 package view;
 
-import controller.ConversorDeDadosController;
-import dao.JDBCFuncionarioDAO;
-import factory.ConnectionFactory;
+import controller.LoginController;
 import java.awt.CardLayout;
 import java.awt.event.KeyEvent;
 
-import javax.swing.JOptionPane;
 
-import model.Strings;
-import model.Usuario;
-import sqlite.SqliteHelper;
-import sqlite.SqliteUsuariosAdapter;
 
 /**
  *
@@ -24,12 +17,15 @@ import sqlite.SqliteUsuariosAdapter;
  */
 public class Login extends javax.swing.JFrame {
 
-    private TelaPrincipal telaPrincipal = new TelaPrincipal();
-    private Usuario funcionario = new Usuario();
-    private Usuario funcionario2 = new Usuario();
-    private ConversorDeDadosController dadosController = new ConversorDeDadosController();
-    private JDBCFuncionarioDAO funcionarioDAO = new JDBCFuncionarioDAO();
-    private SqliteUsuariosAdapter sqliteUsuariosAdapter = new SqliteUsuariosAdapter();
+    
+
+  
+
+    
+    
+    
+    
+    private LoginController controller = new LoginController();
 
     /**
      * Creates new form Login
@@ -312,31 +308,9 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void entrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarBtnActionPerformed
-        
-        boolean validado = false;
-        if(usuarioLoginTextField.getText().isEmpty() || senhaLoginTextField.getText().isEmpty()){
-                    
-                    
-                    JOptionPane.showMessageDialog(null, Strings.inserir);
-                }else{
-                    
-                
-                funcionario2.setUsuario(usuarioLoginTextField.getText());
-                funcionario2.setSenha(senhaLoginTextField.getText());
-               validado =  funcionarioDAO.selecionarFuncionario(funcionario2);
-                
-                if(validado == true){
-                    
-                    telaPrincipal.setVisible(true);
-                    this.setVisible(false);
-                }
-                    
-                    
-                }
 
     
-//        funcionario2.setUsuario("norb7492");
-//        sqliteUsuariosAdapter.inserirUsuario(funcionario2);
+        controller.fazerLoginUsuario(usuarioLoginTextField, senhaLoginTextField);
     }//GEN-LAST:event_entrarBtnActionPerformed
 
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarBtnActionPerformed
@@ -356,43 +330,8 @@ public class Login extends javax.swing.JFrame {
 
     private void cadastrarFBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarFBtnActionPerformed
 
-        try {
 
-            String nome = cadastraNomeTextField.getText();
-            long cpf = dadosController.converterCpf(cadastraCpfTextField);
-            String endereco = cadastraEnderecoTextField.getText();
-            String data = dadosController.converterData(dateChooser);
-            String cargo = String.valueOf(cadastraCargoBox.getSelectedItem());
-            int matricula = Integer.valueOf(cadastraMatriculaTextField.getText());
-            String usuario = cadastraUsuarioTextField.getText();
-            String senha = cadastraSenhaTextField.getText();
-            if (nome.trim().isEmpty() || String.valueOf(cpf).isEmpty()
-                    || endereco.isEmpty() || data.isEmpty() || cargo.isEmpty()
-                    || String.valueOf(matricula).isEmpty() || usuario.isEmpty() || senha.isEmpty()) {
-
-                JOptionPane.showMessageDialog(null, Strings.preecherCampos);
-
-            } else {
-
-                funcionario.setNome(nome);
-                funcionario.setCpf(cpf);
-                funcionario.setEndereco(endereco);
-                funcionario.setDataAdmissao(data);
-                funcionario.setCargo(cargo);
-                funcionario.setMatricula(matricula);
-                funcionario.setUsuario(usuario);
-                funcionario.setSenha(senha);
-                funcionarioDAO.inserirFuncionario(funcionario);
-            }
-        } catch (NullPointerException e) {
-
-            JOptionPane.showMessageDialog(null, Strings.dataErrada);
-
-        } catch (NumberFormatException e) {
-
-            JOptionPane.showMessageDialog(null, Strings.preecherCampos);
-        }
-
+                controller.cadastrarUsuario(cadastraNomeTextField, cadastraCpfTextField, cadastraEnderecoTextField, dateChooser, cadastraCargoBox, cadastraMatriculaTextField, cadastraUsuarioTextField, cadastraSenhaTextField);
 
     }//GEN-LAST:event_cadastrarFBtnActionPerformed
 
@@ -460,9 +399,10 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
-                System.out.println("Rodou aqui ja");
-                SqliteHelper.criarTabelaUsuario();
+                
+                new Login().setVisible(false);
+                LoginController.verificarUsuarioLogado();
+
             }
         });
     }
