@@ -40,6 +40,8 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jEnderecoTextField = new javax.swing.JTextField();
         jCadastrarButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jCelularTextField = new javax.swing.JFormattedTextField();
 
         jLabel1.setText("Nome:");
 
@@ -60,6 +62,14 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Celular:");
+
+        try {
+            jCelularTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,12 +81,14 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jcpfLabel)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jcpfFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                             .addComponent(jEnderecoTextField)
-                            .addComponent(jnomeClienteTexField)))
+                            .addComponent(jnomeClienteTexField)
+                            .addComponent(jCelularTextField)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(143, 143, 143)
                         .addComponent(jCadastrarButton)))
@@ -97,7 +109,11 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jEnderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jCelularTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
                 .addComponent(jCadastrarButton)
                 .addGap(43, 43, 43))
         );
@@ -109,7 +125,7 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
     private void jCadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarButtonActionPerformed
         
         try{
-   controller.cadastrarClienteFisico(jnomeClienteTexField, jcpfFormattedTextField, jEnderecoTextField);
+   controller.cadastrarClienteFisico(jnomeClienteTexField, jcpfFormattedTextField, jEnderecoTextField,jCelularTextField);
         }catch(NullPointerException e){
             
             
@@ -159,9 +175,11 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jCadastrarButton;
+    private javax.swing.JFormattedTextField jCelularTextField;
     private javax.swing.JTextField jEnderecoTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JFormattedTextField jcpfFormattedTextField;
     private javax.swing.JLabel jcpfLabel;
     private javax.swing.JTextField jnomeClienteTexField;

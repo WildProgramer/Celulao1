@@ -5,7 +5,7 @@
  */
 package dao;
 
-import model.Funcionario;
+
 import model.Usuario;
 
 /**

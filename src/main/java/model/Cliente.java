@@ -13,7 +13,19 @@ public class Cliente extends Pessoa{
     
     private long idCliente;
     private String tipo;
+    private long celular;
 
+    public long getCelular() {
+        return celular;
+    }
+
+    public void setCelular(long celular) {
+        this.celular = celular;
+    }
+    
+    
+    
+    
     public long getIdCliente() {
         return idCliente;
     }

@@ -29,7 +29,7 @@ public class CadastrarClienteController {
     }
 
     public void cadastrarClienteFisico(JTextField jnomeClienteTexField,
-            JFormattedTextField jcpfFormattedTextField, JTextField jEnderecoTextField)  {
+            JFormattedTextField jcpfFormattedTextField, JTextField jEnderecoTextField, JFormattedTextField jCelularTextField)  {
         Cliente c = new Cliente();
         ConversorDeDadosController dadosController = new ConversorDeDadosController();
         JDBCClienteDAO clienteDAO = new JDBCClienteDAO();
@@ -38,10 +38,12 @@ public class CadastrarClienteController {
             c.setNome(jnomeClienteTexField.getText());
             c.setTipo("Físico");
             c.setCpf(dadosController.converterCpf(jcpfFormattedTextField));
+            c.setCelular(dadosController.converterCpf(jCelularTextField));
             c.setEndereco(jEnderecoTextField.getText());
           
         } catch (NumberFormatException e) {
              JOptionPane.showMessageDialog(null, Strings.preecherCampos);
+
 
         }catch(NullPointerException e){
             JOptionPane.showMessageDialog(null, Strings.preecherCampos);
@@ -50,7 +52,7 @@ public class CadastrarClienteController {
         }
         
    
-         if (c.getNome().isEmpty() || c.getTipo().isEmpty() ||  c.getEndereco().isEmpty() || c.getCpf() ==0){
+         if (c.getNome().isEmpty() || c.getTipo().isEmpty() ||  c.getEndereco().isEmpty() || c.getCpf() ==0 || c.getCelular()==0){
              
              
              JOptionPane.showMessageDialog(null, Strings.preecherCampos);

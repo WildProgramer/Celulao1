@@ -44,6 +44,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jTecnico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -51,6 +53,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jCadastrarUs = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jClienteTable = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jBemOk = new javax.swing.JButton();
@@ -74,6 +78,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addContainerListener(new java.awt.event.ContainerAdapter() {
@@ -117,32 +134,49 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Físico", "Jurídico" }));
 
+        jClienteTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nome", "Tipo", "Celular"
+            }
+        ));
+        jScrollPane2.setViewportView(jClienteTable);
+        if (jClienteTable.getColumnModel().getColumnCount() > 0) {
+            jClienteTable.getColumnModel().getColumn(0).setHeaderValue("Id");
+            jClienteTable.getColumnModel().getColumn(1).setHeaderValue("Nome");
+            jClienteTable.getColumnModel().getColumn(2).setHeaderValue("Tipo");
+            jClienteTable.getColumnModel().getColumn(3).setHeaderValue("Celular");
+        }
+
         javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
         jAtendente.setLayout(jAtendenteLayout);
         jAtendenteLayout.setHorizontalGroup(
             jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAtendenteLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(jAtendenteLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel1))
-                    .addGroup(jAtendenteLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(jCadastrarUs)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(383, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jAtendenteLayout.setVerticalGroup(
             jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAtendenteLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCadastrarUs)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(115, 115, 115))
+                .addGap(83, 83, 83))
         );
 
         jPanel1.add(jAtendente, "atendente");
@@ -240,6 +274,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void jBemOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBemOkActionPerformed
         controller.escolherTela(jPanel1);
+        controller.listaClientes(jClienteTable);
     }//GEN-LAST:event_jBemOkActionPerformed
 
     /**
@@ -290,6 +325,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jAtendente;
     private javax.swing.JButton jBemOk;
     private javax.swing.JButton jCadastrarUs;
+    private javax.swing.JTable jClienteTable;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -304,6 +340,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jTecnico;
     // End of variables declaration//GEN-END:variables
 }

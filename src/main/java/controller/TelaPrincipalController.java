@@ -5,54 +5,65 @@
  */
 package controller;
 
+import dao.JDBCClienteDAO;
 import java.awt.CardLayout;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import model.Cliente;
 import sqlite.SqliteUsuariosAdapter;
 
 /**
  *
  * @author Norb7492
  */
-public class TelaPrincipalController extends Thread {
-    
-    
-      public  void escolherTela(JPanel jPanel1){
+public class TelaPrincipalController {
+
+    public void escolherTela(JPanel jPanel1) {
         SqliteUsuariosAdapter usuariosAdapter = new SqliteUsuariosAdapter();
         String cargo;
-        
-        
+
         cargo = usuariosAdapter.buscarUsuario();
         System.out.println(cargo);
-        
-        if(cargo.equals("")){
-            
+
+        if (cargo.equals("")) {
+
             System.out.println("está nulo");
-        }else{
-        if(cargo.equals("Atendente")){
-            
-           CardLayout cl = (CardLayout) jPanel1.getLayout();
-            cl.show(jPanel1, "atendente");
-        }else{
-            
-            CardLayout cl = (CardLayout) jPanel1.getLayout();
-            cl.show(jPanel1, "tecnico");
+        } else {
+            if (cargo.equals("Atendente")) {
+
+                CardLayout cl = (CardLayout) jPanel1.getLayout();
+                cl.show(jPanel1, "atendente");
+            } else {
+
+                CardLayout cl = (CardLayout) jPanel1.getLayout();
+                cl.show(jPanel1, "tecnico");
+            }
         }
     }
-      }
-      
-      
-      public void run(){
-          SqliteUsuariosAdapter usuariosAdapter = new SqliteUsuariosAdapter();
-          
-          while(usuariosAdapter.buscarUsuario().equals("")){
-              
-              System.out.println("Esta nulo ainda");
-              
-              
-          }
-          
-          System.out.println("Nao esta mais nulo");
-          
-      }
+    
+    public void listaClientes(JTable jTable1){
+        JDBCClienteDAO clienteDAO = new JDBCClienteDAO();
+        ArrayList<Cliente> clienteArray;
+        clienteArray = clienteDAO.listarClientes();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object rowData[] = new Object[4];
+        
+        for(int i = 0; i <clienteArray.size(); i++){
+            
+            rowData[0] = clienteArray.get(i).getIdCliente();
+            rowData[1] = clienteArray.get(i).getNome();
+            rowData[2] = clienteArray.get(i).getTipo();
+            rowData[3] = clienteArray.get(i).getCelular();
+            model.addRow(rowData);
+            
+        }
+        
+        
+        
+        
+    }
+
 }

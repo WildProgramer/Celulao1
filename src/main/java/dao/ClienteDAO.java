@@ -5,6 +5,8 @@
  */
 package dao;
 
+
+import java.util.ArrayList;
 import model.Cliente;
 
 
@@ -17,7 +19,7 @@ public interface ClienteDAO {
     
     public void inserirFuncionario(Cliente c);
     
-    
+    public ArrayList listarClientes();
     
     
 }

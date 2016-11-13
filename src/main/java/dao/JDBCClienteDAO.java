@@ -7,10 +7,15 @@ package dao;
 
 import factory.ConnectionFactory;
 import helper.JDBCQueryHelper;
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Cliente;
 
 /**
@@ -77,11 +82,12 @@ public class JDBCClienteDAO implements ClienteDAO {
             }
 
             //Inserir Cliente
-            String Cliente = "INSERT INTO cliente (pessoa_idPessoa, tipoCliente_idTipoCliente) VALUES "
-                    + "(?,?)";
+            String Cliente = "INSERT INTO cliente (pessoa_idPessoa, tipoCliente_idTipoCliente,celular) VALUES "
+                    + "(?,?,?)";
             insertCliente = connection.prepareStatement(Cliente, Statement.RETURN_GENERATED_KEYS);
             insertCliente.setInt(1, idPessoa);
             insertCliente.setInt(2, idTipo);
+            insertCliente.setLong(3, c.getCelular());
             insertCliente.executeUpdate();
 
             connection.commit();
@@ -105,6 +111,43 @@ public class JDBCClienteDAO implements ClienteDAO {
             }
 
         }
+    }
+
+    @Override
+    public ArrayList listarClientes() {
+
+        PreparedStatement listarCliente = null;
+        ResultSet rs;
+        ArrayList<Cliente> clienteArray = new ArrayList();
+
+        String Listar = "SELECT cliente.idCliente, cliente.celular, pessoa.nome, tipocliente.tipoCliente\n"
+                + "FROM cliente\n"
+                + "INNER JOIN pessoa\n"
+                + "ON cliente.pessoa_idPessoa = pessoa.idPessoa\n"
+                + "INNER JOIN tipocliente\n"
+                + "ON cliente.tipoCliente_idTipoCliente = tipocliente.idTipoCliente";
+        
+        
+        try {
+            listarCliente = connection.prepareStatement(Listar);
+            
+            rs = listarCliente.executeQuery();
+            while(rs.next()){
+               Cliente c = new Cliente();
+                   c.setIdCliente(rs.getInt("idCliente"));
+                   c.setCelular(rs.getLong("celular"));
+                   c.setNome(rs.getString("nome"));
+                   c.setTipo(rs.getString("tipoCliente"));
+                
+                 clienteArray.add(c);
+                   
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return clienteArray;
     }
 
 }
