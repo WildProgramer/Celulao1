@@ -41,6 +41,7 @@ public class JDBCClienteDAO implements ClienteDAO {
 
         PreparedStatement insertPessoa = null;
         PreparedStatement insertTipoCliente = null;
+        PreparedStatement insertTipoClienteJuridico = null;
         PreparedStatement insertCliente = null;
 
         try {
@@ -54,15 +55,25 @@ public class JDBCClienteDAO implements ClienteDAO {
                 insertPessoa = connection.prepareStatement(Pessoa, Statement.RETURN_GENERATED_KEYS);
                 insertPessoa.setString(1, c.getNome());
                 insertPessoa.setLong(2, c.getCpf());
-                insertPessoa.setInt(3, 0);
+                insertPessoa.setLong(3, 0);
                 insertPessoa.setString(4, c.getEndereco());
 
                 insertPessoa.executeUpdate();
                 idPessoa = queryHelper.getLastId(insertPessoa);
 
             } else {
+                // Inserir Pessoa Jurídica
+                String Pessoa = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
+                        + "(?,?,?,?)";
 
-                System.out.println("Empresinha");
+                insertPessoa = connection.prepareStatement(Pessoa, Statement.RETURN_GENERATED_KEYS);
+                insertPessoa.setString(1, c.getNome());
+                insertPessoa.setLong(2, 0);
+                insertPessoa.setLong(3, c.getCnpj());
+                insertPessoa.setString(4, c.getEndereco());
+
+                insertPessoa.executeUpdate();
+                idPessoa = queryHelper.getLastId(insertPessoa);
 
             }
 

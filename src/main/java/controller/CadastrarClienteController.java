@@ -65,6 +65,43 @@ public class CadastrarClienteController {
             
         }
       
+    
+      public void cadastrarClienteJuridico(JTextField jnomeClienteTexField,
+            JFormattedTextField jcnpjFormattedTextField, JTextField jEnderecoTextField, JFormattedTextField jCelularTextField)  {
+        Cliente c = new Cliente();
+        ConversorDeDadosController dadosController = new ConversorDeDadosController();
+        JDBCClienteDAO clienteDAO = new JDBCClienteDAO();
+
+        try {
+            c.setNome(jnomeClienteTexField.getText());
+            c.setTipo("Jurídico");
+            c.setCnpj(dadosController.converterCpf(jcnpjFormattedTextField));
+            c.setCelular(dadosController.converterCpf(jCelularTextField));
+            c.setEndereco(jEnderecoTextField.getText());
+          
+        } catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(null, Strings.preecherCampos);
+
+
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, Strings.preecherCampos);
+
+            
+        }
+        
+   
+         if (c.getNome().isEmpty() || c.getTipo().isEmpty() ||  c.getEndereco().isEmpty() || c.getCnpj()==0 || c.getCelular()==0){
+             
+             
+             JOptionPane.showMessageDialog(null, Strings.preecherCampos);
+             
+         }else{
+             
+             clienteDAO.inserirFuncionario(c);
+         }
+            
+            
+        }
           
     
 

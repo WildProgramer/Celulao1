@@ -6,8 +6,7 @@
 package view;
 
 import controller.CadastrarClienteController;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *

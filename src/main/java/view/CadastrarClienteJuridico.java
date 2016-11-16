@@ -5,15 +5,16 @@
  */
 package view;
 
+import controller.CadastrarClienteController;
+
 /**
  *
  * @author Norb7492
  */
 public class CadastrarClienteJuridico extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CadastrarClienteJuridico
-     */
+    private CadastrarClienteController controller = new CadastrarClienteController();
+
     public CadastrarClienteJuridico() {
         initComponents();
     }
@@ -34,6 +35,8 @@ public class CadastrarClienteJuridico extends javax.swing.JFrame {
         jcnpjLabel = new javax.swing.JLabel();
         jcnpjFormattedTextField = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jCelularTextField = new javax.swing.JFormattedTextField();
 
         jCadastrarButton.setText("Cadastrar");
         jCadastrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +57,19 @@ public class CadastrarClienteJuridico extends javax.swing.JFrame {
 
         jLabel3.setText("Endereço:");
 
+        jLabel4.setText("Celular:");
+
+        try {
+            jCelularTextField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##) #####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jCelularTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCelularTextFieldActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,19 +77,26 @@ public class CadastrarClienteJuridico extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jcnpjLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jEnderecoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                            .addComponent(jnomeClienteTexField)
-                            .addComponent(jcnpjFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(158, 158, 158)
-                        .addComponent(jCadastrarButton)))
+                        .addComponent(jCadastrarButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCelularTextField))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jcnpjLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jEnderecoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                                    .addComponent(jnomeClienteTexField)
+                                    .addComponent(jcnpjFormattedTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))))))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -91,7 +114,11 @@ public class CadastrarClienteJuridico extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jEnderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jCelularTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addComponent(jCadastrarButton)
                 .addContainerGap(98, Short.MAX_VALUE))
         );
@@ -102,9 +129,14 @@ public class CadastrarClienteJuridico extends javax.swing.JFrame {
 
     private void jCadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarButtonActionPerformed
 
-      
+          controller.cadastrarClienteJuridico(jnomeClienteTexField, jcnpjFormattedTextField, jEnderecoTextField, jCelularTextField);
+
 
     }//GEN-LAST:event_jCadastrarButtonActionPerformed
+
+    private void jCelularTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCelularTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCelularTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,9 +175,11 @@ public class CadastrarClienteJuridico extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jCadastrarButton;
+    private javax.swing.JFormattedTextField jCelularTextField;
     private javax.swing.JTextField jEnderecoTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JFormattedTextField jcnpjFormattedTextField;
     private javax.swing.JLabel jcnpjLabel;
     private javax.swing.JTextField jnomeClienteTexField;
