@@ -7,6 +7,7 @@ package dao;
 
 
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import model.Cliente;
 
 
@@ -20,6 +21,8 @@ public interface ClienteDAO {
     public void inserirFuncionario(Cliente c);
     
     public ArrayList listarClientes();
+    
+    public void mostrarClienteParaCadastrarPedido(String id,JLabel idLabel, JLabel nomeLabel);
     
     
 }

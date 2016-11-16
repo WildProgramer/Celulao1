@@ -7,7 +7,6 @@ package dao;
 
 import factory.ConnectionFactory;
 import helper.JDBCQueryHelper;
-import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +15,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import model.Cliente;
 
 /**
@@ -41,7 +41,6 @@ public class JDBCClienteDAO implements ClienteDAO {
 
         PreparedStatement insertPessoa = null;
         PreparedStatement insertTipoCliente = null;
-        PreparedStatement insertTipoClienteJuridico = null;
         PreparedStatement insertCliente = null;
 
         try {
@@ -131,34 +130,68 @@ public class JDBCClienteDAO implements ClienteDAO {
         ResultSet rs;
         ArrayList<Cliente> clienteArray = new ArrayList();
 
+        clienteArray.clear();
         String Listar = "SELECT cliente.idCliente, cliente.celular, pessoa.nome, tipocliente.tipoCliente\n"
                 + "FROM cliente\n"
                 + "INNER JOIN pessoa\n"
                 + "ON cliente.pessoa_idPessoa = pessoa.idPessoa\n"
                 + "INNER JOIN tipocliente\n"
                 + "ON cliente.tipoCliente_idTipoCliente = tipocliente.idTipoCliente";
-        
-        
+
         try {
             listarCliente = connection.prepareStatement(Listar);
-            
+
             rs = listarCliente.executeQuery();
-            while(rs.next()){
-               Cliente c = new Cliente();
-                   c.setIdCliente(rs.getInt("idCliente"));
-                   c.setCelular(rs.getLong("celular"));
-                   c.setNome(rs.getString("nome"));
-                   c.setTipo(rs.getString("tipoCliente"));
-                
-                 clienteArray.add(c);
-                   
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setIdCliente(rs.getInt("idCliente"));
+                c.setCelular(rs.getLong("celular"));
+                c.setNome(rs.getString("nome"));
+                c.setTipo(rs.getString("tipoCliente"));
+
+                clienteArray.add(c);
+
             }
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
+
         return clienteArray;
     }
 
+    @Override
+    public void mostrarClienteParaCadastrarPedido(String id, JLabel idLabel, JLabel nomeLabel) {
+
+        PreparedStatement ps;
+        String cliente = "SELECT cliente.idCliente, pessoa.nome \n"
+                + "FROM cliente\n"
+                + "INNER JOIN pessoa\n"
+                + "ON cliente.pessoa_idPessoa = pessoa.idPessoa\n"
+                + "WHERE cliente.idCliente = ?";
+        try {
+            ps = connection.prepareStatement(cliente);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            
+            if(rs.next()){
+                
+                System.out.println(String.valueOf(rs.getInt("idCliente")));
+                System.out.println(rs.getString("nome"));
+                
+                
+                idLabel.setText(String.valueOf(rs.getInt("idCliente")));
+                nomeLabel.setText(rs.getString("nome"));
+                
+            }
+            
+            
+        } catch (SQLException ex) {
+         
+                System.out.println(ex.getMessage());
+        }
+        
+        
+        
+    }
 }

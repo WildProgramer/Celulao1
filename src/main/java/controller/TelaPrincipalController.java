@@ -8,6 +8,7 @@ package controller;
 import dao.JDBCClienteDAO;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -60,6 +61,15 @@ public class TelaPrincipalController {
             model.addRow(rowData);
             
         }
+        
+        
+        
+        
+    }
+    
+    public void mostrarClienteParaCadastrarPedido(String id, JLabel idLabel, JLabel nomeLabel){
+        JDBCClienteDAO clienteDAO = new JDBCClienteDAO();
+        clienteDAO.mostrarClienteParaCadastrarPedido(id, idLabel, nomeLabel);
         
         
         

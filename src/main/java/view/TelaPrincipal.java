@@ -7,6 +7,8 @@ package view;
 
 import controller.TelaPrincipalController;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,14 +23,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     public TelaPrincipal() {
         initComponents();
-        System.out.println("here started");
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.show(jPanel1, "bemvindo");
+        
         
     
 
 
        
+    }
+    
+    public void refreshTable(){
+        
+        DefaultTableModel model = (DefaultTableModel) jClienteTable.getModel();
+        model.setRowCount(0);
+        controller.listaClientes(jClienteTable);
+        
     }
 
     
@@ -55,6 +65,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jClienteTable = new javax.swing.JTable();
+        jIdClienteMostrarLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jMostrarNomeLabel = new javax.swing.JLabel();
+        jMarcaTextField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jSerieFormatedText = new javax.swing.JFormattedTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jobservacaoTextPane = new javax.swing.JTextPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jBemOk = new javax.swing.JButton();
@@ -110,7 +130,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jTecnicoLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
                 .addComponent(jLabel2)
-                .addContainerGap(552, Short.MAX_VALUE))
+                .addContainerGap(699, Short.MAX_VALUE))
         );
         jTecnicoLayout.setVerticalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,6 +162,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 "Id", "Nome", "Tipo", "Celular"
             }
         ));
+        jClienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jClienteTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jClienteTable);
         if (jClienteTable.getColumnModel().getColumnCount() > 0) {
             jClienteTable.getColumnModel().getColumn(0).setHeaderValue("Id");
@@ -150,6 +175,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
             jClienteTable.getColumnModel().getColumn(3).setHeaderValue("Celular");
         }
 
+        jIdClienteMostrarLabel.setText("IdCliente");
+
+        jButton1.setText("Refresh");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jMostrarNomeLabel.setText("Nome");
+
+        jMarcaTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMarcaTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Marca:");
+
+        jLabel5.setText("Serie:");
+
+        try {
+            jSerieFormatedText.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###############/##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel8.setText("Observação:");
+
+        jScrollPane3.setViewportView(jobservacaoTextPane);
+
         javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
         jAtendente.setLayout(jAtendenteLayout);
         jAtendenteLayout.setHorizontalGroup(
@@ -157,26 +213,71 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jAtendenteLayout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jAtendenteLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jMarcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jAtendenteLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jIdClienteMostrarLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jMostrarNomeLabel))
+                            .addGroup(jAtendenteLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSerieFormatedText, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane3)))))
                     .addComponent(jLabel1)
                     .addGroup(jAtendenteLayout.createSequentialGroup()
                         .addComponent(jCadastrarUs)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton1)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         jAtendenteLayout.setVerticalGroup(
             jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAtendenteLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jMarcaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jSerieFormatedText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jAtendenteLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCadastrarUs)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83))
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jIdClienteMostrarLabel)
+                            .addComponent(jMostrarNomeLabel))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                        .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jCadastrarUs)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))
+                        .addGap(83, 83, 83))))
         );
 
         jPanel1.add(jAtendente, "atendente");
@@ -199,7 +300,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBemOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(293, Short.MAX_VALUE))
+                .addContainerGap(440, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,6 +378,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
         controller.listaClientes(jClienteTable);
     }//GEN-LAST:event_jBemOkActionPerformed
 
+    private void jClienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jClienteTableMouseClicked
+       
+        try{
+            int row = jClienteTable.getSelectedRow();
+            String table_click = (jClienteTable.getModel().getValueAt(row, 0).toString());
+            
+            controller.mostrarClienteParaCadastrarPedido(table_click, jIdClienteMostrarLabel, jMostrarNomeLabel);
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+            
+        }
+        
+    }//GEN-LAST:event_jClienteTableMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) jClienteTable.getModel();
+        model.setRowCount(0);
+        controller.listaClientes(jClienteTable);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMarcaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMarcaTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMarcaTextFieldActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -324,12 +450,18 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jAtendente;
     private javax.swing.JButton jBemOk;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jCadastrarUs;
     private javax.swing.JTable jClienteTable;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jIdClienteMostrarLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JTextField jMarcaTextField;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -337,12 +469,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JLabel jMostrarNomeLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JFormattedTextField jSerieFormatedText;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel jTecnico;
+    private javax.swing.JTextPane jobservacaoTextPane;
     // End of variables declaration//GEN-END:variables
 }
