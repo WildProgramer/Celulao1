@@ -9,15 +9,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import model.Usuario;
+
+
 
 /**
  *
  * @author Norb7492
  */
+
+//Classe que ajuda a inserir dados, e buscar dados no sqlite
 public class SqliteUsuariosAdapter{
     
     public PreparedStatement stmt = null;

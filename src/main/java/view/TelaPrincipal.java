@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
 
-    
+   private int idDaLinhaSelecionada;
    private TelaPrincipalController controller = new TelaPrincipalController();
     
     
@@ -381,8 +381,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jClienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jClienteTableMouseClicked
        
         try{
-            int row = jClienteTable.getSelectedRow();
-            String table_click = (jClienteTable.getModel().getValueAt(row, 0).toString());
+            idDaLinhaSelecionada = jClienteTable.getSelectedRow();
+            String table_click = (jClienteTable.getModel().getValueAt(idDaLinhaSelecionada, 0).toString());
             
             controller.mostrarClienteParaCadastrarPedido(table_click, jIdClienteMostrarLabel, jMostrarNomeLabel);
             

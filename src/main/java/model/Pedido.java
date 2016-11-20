@@ -12,7 +12,9 @@ package model;
 public class Pedido {
     
     private long idPedido;
-    private String status;
+    private String marca;
+    private long numeroSerie;
+    private String obervacao;
 
     public long getIdPedido() {
         return idPedido;
@@ -22,13 +24,24 @@ public class Pedido {
         this.idPedido = idPedido;
     }
 
-    public String getStatus() {
-        return status;
+    public String getMarca() {
+        return marca;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
+
+    public long getNumeroSerie() {
+        return numeroSerie;
+    }
+
+    public void setNumeroSerie(long numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
+    
+    
+    
     
     
     

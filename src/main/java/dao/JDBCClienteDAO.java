@@ -13,15 +13,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import model.Cliente;
 
 /**
  *
  * @author Norb7492
+ * 
+ *  
  */
+//Esta classe insere o cliente na base de dados
 public class JDBCClienteDAO implements ClienteDAO {
 
     private Connection connection;
@@ -48,10 +49,10 @@ public class JDBCClienteDAO implements ClienteDAO {
             connection.setAutoCommit(false);
 
             if (c.getTipo().equals("Físico")) {
-                String Pessoa = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
+                String inserirPessoaFisicaQuery = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
                         + "(?,?,?,?)";
 
-                insertPessoa = connection.prepareStatement(Pessoa, Statement.RETURN_GENERATED_KEYS);
+                insertPessoa = connection.prepareStatement(inserirPessoaFisicaQuery, Statement.RETURN_GENERATED_KEYS);
                 insertPessoa.setString(1, c.getNome());
                 insertPessoa.setLong(2, c.getCpf());
                 insertPessoa.setLong(3, 0);
@@ -62,10 +63,10 @@ public class JDBCClienteDAO implements ClienteDAO {
 
             } else {
                 // Inserir Pessoa Jurídica
-                String Pessoa = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
+                String inserirPessoaJurificaQuery = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
                         + "(?,?,?,?)";
 
-                insertPessoa = connection.prepareStatement(Pessoa, Statement.RETURN_GENERATED_KEYS);
+                insertPessoa = connection.prepareStatement(inserirPessoaJurificaQuery, Statement.RETURN_GENERATED_KEYS);
                 insertPessoa.setString(1, c.getNome());
                 insertPessoa.setLong(2, 0);
                 insertPessoa.setLong(3, c.getCnpj());
@@ -92,9 +93,9 @@ public class JDBCClienteDAO implements ClienteDAO {
             }
 
             //Inserir Cliente
-            String Cliente = "INSERT INTO cliente (pessoa_idPessoa, tipoCliente_idTipoCliente,celular) VALUES "
+            String inserirClienteQuery = "INSERT INTO cliente (pessoa_idPessoa, tipoCliente_idTipoCliente,celular) VALUES "
                     + "(?,?,?)";
-            insertCliente = connection.prepareStatement(Cliente, Statement.RETURN_GENERATED_KEYS);
+            insertCliente = connection.prepareStatement(inserirClienteQuery, Statement.RETURN_GENERATED_KEYS);
             insertCliente.setInt(1, idPessoa);
             insertCliente.setInt(2, idTipo);
             insertCliente.setLong(3, c.getCelular());
@@ -131,7 +132,7 @@ public class JDBCClienteDAO implements ClienteDAO {
         ArrayList<Cliente> clienteArray = new ArrayList();
 
         clienteArray.clear();
-        String Listar = "SELECT cliente.idCliente, cliente.celular, pessoa.nome, tipocliente.tipoCliente\n"
+        String listarClienteQuery = "SELECT cliente.idCliente, cliente.celular, pessoa.nome, tipocliente.tipoCliente\n"
                 + "FROM cliente\n"
                 + "INNER JOIN pessoa\n"
                 + "ON cliente.pessoa_idPessoa = pessoa.idPessoa\n"
@@ -139,7 +140,7 @@ public class JDBCClienteDAO implements ClienteDAO {
                 + "ON cliente.tipoCliente_idTipoCliente = tipocliente.idTipoCliente";
 
         try {
-            listarCliente = connection.prepareStatement(Listar);
+            listarCliente = connection.prepareStatement(listarClienteQuery);
 
             rs = listarCliente.executeQuery();
             while (rs.next()) {
@@ -164,13 +165,13 @@ public class JDBCClienteDAO implements ClienteDAO {
     public void mostrarClienteParaCadastrarPedido(String id, JLabel idLabel, JLabel nomeLabel) {
 
         PreparedStatement ps;
-        String cliente = "SELECT cliente.idCliente, pessoa.nome \n"
+        String mostrarClienteLabelQuery = "SELECT cliente.idCliente, pessoa.nome \n"
                 + "FROM cliente\n"
                 + "INNER JOIN pessoa\n"
                 + "ON cliente.pessoa_idPessoa = pessoa.idPessoa\n"
                 + "WHERE cliente.idCliente = ?";
         try {
-            ps = connection.prepareStatement(cliente);
+            ps = connection.prepareStatement(mostrarClienteLabelQuery);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
             

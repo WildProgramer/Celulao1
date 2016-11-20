@@ -5,6 +5,8 @@
  */
 package dao;
 
+import model.Pedido;
+
 /**
  *
  * @author Norb7492
@@ -12,5 +14,6 @@ package dao;
 public interface PedidoDAO {
     
     
+    public void inserirPedido(Pedido p, long idCliente);
     
 }

@@ -23,8 +23,13 @@ import view.TelaPrincipal;
  *
  * @author Norb7492
  */
+
+//Classe que faz o login do usuário e também cadastra usuário, como Técnico e Atendente
+//Também é utilizado as classes do Sqlite onde é salvo o usuário depois de logado, para poder persistir o login
 public class LoginController {
 
+    
+    //Método que cadastra o usuário no banco de dados, usando as classes do dao e classes do modelo
     public void cadastrarUsuario(JTextField cadastraNomeTextField, JFormattedTextField cadastraCpfTextField, JTextField cadastraEnderecoTextField,
             JDateChooser dateChooser, JComboBox<String> cadastraCargoBox, JTextField cadastraMatriculaTextField, JTextField cadastraUsuarioTextField,
             JTextField cadastraSenhaTextField) {  
@@ -74,6 +79,8 @@ public class LoginController {
 
     }
     
+    
+    //Método que faz o login do usuário, automáticamente entrando na janela do técnico ou atendende
     public void fazerLoginUsuario(JTextField usuarioLoginTextField, JPasswordField senhaLoginTextField
       ){
         
@@ -103,6 +110,8 @@ public class LoginController {
     }
     }
     
+    
+    //Método que verifica se têm um usuário logado no Sqlite, se tiver ele entra com o ultimo usuário que fez login.
     public static void verificarUsuarioLogado(){
         
                 SqliteHelper.criarTabelaUsuario();

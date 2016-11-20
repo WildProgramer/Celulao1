@@ -38,8 +38,8 @@ public class JDBCQueryHelper {
               nomeOndeProcurar, String nomeProcurar) throws SQLException{
           
             PreparedStatement ps;
-            String Query = "SELECT " + nomeIdCampo + " FROM " +nomeTabela+ " WHERE " + nomeOndeProcurar+" = ?";
-            ps = connection.prepareStatement(Query);
+            String query = "SELECT " + nomeIdCampo + " FROM " +nomeTabela+ " WHERE " + nomeOndeProcurar+" = ?";
+            ps = connection.prepareStatement(query);
             ps.setString(1, nomeProcurar);
         
             ResultSet rs = ps.executeQuery();

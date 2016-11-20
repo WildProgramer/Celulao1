@@ -13,6 +13,8 @@ import javax.swing.JTextField;
  *
  * @author Norb7492
  */
+
+//Classe que convert os cpf, cnpj, números de série em números inteiros sem carácteres
 public class ConversorDeDadosController {
     
     

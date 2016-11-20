@@ -17,8 +17,12 @@ import model.Strings;
  *
  * @author Norb7492
  */
+
+//Controller cliente, que une as classes do model com as classes do view
 public class CadastrarClienteController {
 
+    
+    //Retorna o item que foi selecionado pela comboBox, se o cliente que vai ser inserido e jurídico ou físico
     public String escolherBosItem(JComboBox<String> jTipoBox) {
 
         String itemSelecionado = String.valueOf(jTipoBox.getSelectedItem());
@@ -28,6 +32,7 @@ public class CadastrarClienteController {
         return itemSelecionado;
     }
 
+    //Método que cadastra o cliente físico
     public void cadastrarClienteFisico(JTextField jnomeClienteTexField,
             JFormattedTextField jcpfFormattedTextField, JTextField jEnderecoTextField, JFormattedTextField jCelularTextField)  {
         Cliente c = new Cliente();
@@ -65,7 +70,7 @@ public class CadastrarClienteController {
             
         }
       
-    
+        //Método que cadastra o cliente jurídico
       public void cadastrarClienteJuridico(JTextField jnomeClienteTexField,
             JFormattedTextField jcnpjFormattedTextField, JTextField jEnderecoTextField, JFormattedTextField jCelularTextField)  {
         Cliente c = new Cliente();

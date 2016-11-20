@@ -15,6 +15,8 @@ import model.Strings;
  *
  * @author Norb7492
  */
+
+//Classe para conexão de banco de dados, tem um método estatico que serve como construtor para abrir a conexão com banco de dados
 public class ConnectionFactory {
     
     public static Connection getConnection(){

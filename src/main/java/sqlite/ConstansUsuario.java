@@ -9,13 +9,19 @@ package sqlite;
  *
  * @author Norb7492
  */
+
+//Esta classe contêm os dados que vão ser usados para trabalhar com a tabela do sqlite, e para criar a mesa
 public class ConstansUsuario {
 
+    
+    
     private static String ID = "idUsuario";
     private static String USUARIO = "usuario";
     private static String CARGO = "cargo";
     private static String TABELA = "usuario";
 
+    
+    //Método que cria a tabela do sqlite
     public static String criarTablea() {
 
         StringBuilder builder = new StringBuilder();

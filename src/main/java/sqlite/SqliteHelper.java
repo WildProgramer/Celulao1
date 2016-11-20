@@ -16,6 +16,8 @@ import java.util.logging.Logger;
  *
  * @author Norb7492
  */
+
+//Classe que ajuda a fazer a conexão com o banco de dados, e criar a tabela se não estiver criada
 public class SqliteHelper {
 
     private static Statement stmt = null;

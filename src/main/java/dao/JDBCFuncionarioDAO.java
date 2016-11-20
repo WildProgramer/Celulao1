@@ -64,12 +64,12 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
             connection.setAutoCommit(false);
             if(queryHelper.verificaSeExiste(connection, "idUsuario", "usuario", "usuario", f.getUsuario()) ==0 ){
          //Inserir dados do funcionario na tabela pessoa   
-        String Pessoa = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
+        String inserirPessoaQuery = "INSERT INTO pessoa (nome, cpf, cnpj, endereco) VALUES "
                 + "(?,?,?,?)";
             
           
             
-            insertPessoa = connection.prepareStatement(Pessoa,Statement.RETURN_GENERATED_KEYS);
+            insertPessoa = connection.prepareStatement(inserirPessoaQuery,Statement.RETURN_GENERATED_KEYS);
             insertPessoa.setString(1, f.getNome());
             insertPessoa.setLong(2, f.getCpf());
             insertPessoa.setInt(3, 0);
@@ -86,11 +86,11 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
         System.out.println(idData);
         
         if(idData == 0){
-        String DataAdmissao = "INSERT INTO data (date) VALUES "
+        String inserirDataAdmissaoQuery = "INSERT INTO data (date) VALUES "
                 + "(?)";  
      
         
-        insertDataAdmissao = connection.prepareStatement(DataAdmissao, Statement.RETURN_GENERATED_KEYS);
+        insertDataAdmissao = connection.prepareStatement(inserirDataAdmissaoQuery, Statement.RETURN_GENERATED_KEYS);
         insertDataAdmissao.setDate(1, Date.valueOf(f.getDataAdmissao()));
         insertDataAdmissao.executeUpdate();
         
@@ -105,10 +105,10 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
         
         if(idCargo == 0){
         
-             String InsereCargo = "INSERT INTO cargo (cargo) VALUES "
+             String inserirCargoQuery = "INSERT INTO cargo (cargo) VALUES "
                 + "(?)";
          
-              inserirCargo = connection.prepareStatement(InsereCargo, Statement.RETURN_GENERATED_KEYS);
+              inserirCargo = connection.prepareStatement(inserirCargoQuery, Statement.RETURN_GENERATED_KEYS);
               inserirCargo.setString(1, f.getCargo());
               inserirCargo.executeUpdate();
               idCargo = queryHelper.getLastId(inserirCargo);
@@ -122,10 +122,10 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
         //Inserir Funcionário--------------------------------
       
             
-            String Funcionario = "INSERT INTO funcionario (data_idData, pessoa_idPessoa, cargo_idCargo, matricula) VALUES "
+            String inserirFuncionarioQuery = "INSERT INTO funcionario (data_idData, pessoa_idPessoa, cargo_idCargo, matricula) VALUES "
                 + "(?,?,?,?)";
             
-            insertFuncionario = connection.prepareStatement(Funcionario,Statement.RETURN_GENERATED_KEYS);
+            insertFuncionario = connection.prepareStatement(inserirFuncionarioQuery,Statement.RETURN_GENERATED_KEYS);
             insertFuncionario.setInt(1, idData);
             insertFuncionario.setInt(2, idPessoa);
             insertFuncionario.setInt(3, idCargo);
@@ -140,10 +140,10 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
     
             //Inserir Usuario----------------------
             
-               String Usuario = "INSERT INTO usuario (funcionario_idFuncionario,usuario,senha) VALUES "
+               String inserirUsuarioQuery = "INSERT INTO usuario (funcionario_idFuncionario,usuario,senha) VALUES "
                 + "(?,?,?)";
             
-            insertUsuario = connection.prepareStatement(Usuario,Statement.RETURN_GENERATED_KEYS);
+            insertUsuario = connection.prepareStatement(inserirUsuarioQuery,Statement.RETURN_GENERATED_KEYS);
             insertUsuario.setInt(1, idFuncionario);
             insertUsuario.setString(2, f.getUsuario());
             insertUsuario.setString(3, f.getSenha());
@@ -204,7 +204,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
         PreparedStatement getUsuario = null;
         ResultSet rs;
         
-         String SelectUsuario = "SELECT usuario.usuario, cargo.cargo\n"
+         String buscarUsuarioQuery = "SELECT usuario.usuario, cargo.cargo\n"
                 + "FROM usuario\n"
                 + "INNER JOIN funcionario\n"
                 + "ON usuario.funcionario_idFuncionario = funcionario.idFuncionario\n"
@@ -214,7 +214,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
         
         try{
             
-            getUsuario = connection.prepareStatement(SelectUsuario);
+            getUsuario = connection.prepareStatement(buscarUsuarioQuery);
             getUsuario.setString(1, u.getUsuario());
             getUsuario.setString(2, u.getSenha());
             rs = getUsuario.executeQuery();
