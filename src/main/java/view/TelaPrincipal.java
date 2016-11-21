@@ -75,6 +75,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jobservacaoTextPane = new javax.swing.JTextPane();
+        jCadastrarPedidoBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jBemOk = new javax.swing.JButton();
@@ -206,6 +207,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jobservacaoTextPane);
 
+        jCadastrarPedidoBtn.setText("Cadastrar");
+        jCadastrarPedidoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastrarPedidoBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
         jAtendente.setLayout(jAtendenteLayout);
         jAtendenteLayout.setHorizontalGroup(
@@ -232,9 +240,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel8)
                                     .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jSerieFormatedText, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane3)))))
+                                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCadastrarPedidoBtn)
+                                    .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jSerieFormatedText, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane3))))))
                     .addComponent(jLabel1)
                     .addGroup(jAtendenteLayout.createSequentialGroup()
                         .addComponent(jCadastrarUs)
@@ -276,7 +286,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jCadastrarUs)
                             .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
+                            .addComponent(jButton1)
+                            .addComponent(jCadastrarPedidoBtn))
                         .addGap(83, 83, 83))))
         );
 
@@ -385,6 +396,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             String table_click = (jClienteTable.getModel().getValueAt(idDaLinhaSelecionada, 0).toString());
             
             controller.mostrarClienteParaCadastrarPedido(table_click, jIdClienteMostrarLabel, jMostrarNomeLabel);
+            controller.mostrarPedidoQuandoSelecionado(table_click, jMarcaTextField, jSerieFormatedText, jobservacaoTextPane);
             
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e);
@@ -397,11 +409,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jClienteTable.getModel();
         model.setRowCount(0);
         controller.listaClientes(jClienteTable);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMarcaTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMarcaTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMarcaTextFieldActionPerformed
+
+    private void jCadastrarPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarPedidoBtnActionPerformed
+        controller.cadastrarPedido(jIdClienteMostrarLabel, jMarcaTextField, jSerieFormatedText, jobservacaoTextPane);
+    }//GEN-LAST:event_jCadastrarPedidoBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -451,6 +468,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jAtendente;
     private javax.swing.JButton jBemOk;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jCadastrarPedidoBtn;
     private javax.swing.JButton jCadastrarUs;
     private javax.swing.JTable jClienteTable;
     private javax.swing.JComboBox<String> jComboBox1;

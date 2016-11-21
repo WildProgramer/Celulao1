@@ -10,7 +10,7 @@ package model;
  *
  * @author Norb7492
  */
-public class Aparelho {
+public class Aparelho extends Cliente{
     private long idAparelho;
     private String marca;
     private long serie;

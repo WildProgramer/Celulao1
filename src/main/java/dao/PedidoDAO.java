@@ -5,6 +5,9 @@
  */
 package dao;
 
+
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import model.Pedido;
 
 /**
@@ -14,6 +17,7 @@ import model.Pedido;
 public interface PedidoDAO {
     
     
-    public void inserirPedido(Pedido p, long idCliente);
-    
+    public void inserirPedido(Pedido p);
+    public void mostrarPedido(String id, JTextField jMarcaTextField,
+            JTextField jSerieFormatedText, JTextPane jobservacaoTextPane);
 }

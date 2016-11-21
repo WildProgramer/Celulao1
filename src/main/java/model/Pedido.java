@@ -9,12 +9,9 @@ package model;
  *
  * @author Norb7492
  */
-public class Pedido {
+public class Pedido extends Aparelho{
     
     private long idPedido;
-    private String marca;
-    private long numeroSerie;
-    private String obervacao;
 
     public long getIdPedido() {
         return idPedido;
@@ -23,22 +20,11 @@ public class Pedido {
     public void setIdPedido(long idPedido) {
         this.idPedido = idPedido;
     }
+    
 
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public long getNumeroSerie() {
-        return numeroSerie;
-    }
-
-    public void setNumeroSerie(long numeroSerie) {
-        this.numeroSerie = numeroSerie;
-    }
+  
+    
+    
     
     
     
