@@ -59,7 +59,7 @@ public class SqliteUsuariosAdapter{
     public boolean  usuarioIsEmpty() {
 
         boolean flag;
-        String quString = "select exists(select 1 from " + ConstansUsuario.getTABELA()  + ");";
+        String quString = "select exists(select 1 from " + ConstantsUsuario.getTABELA()  + ");";
 
        
        
@@ -136,6 +136,42 @@ public class SqliteUsuariosAdapter{
         }
             
         return cargo;
+    }
+    
+    
+    public void deletarTudoDaTabela(){
+        PreparedStatement deletarStmt = null;
+        PreparedStatement zerarStmt = null;
+     
+        
+        
+        
+        
+            String deletar = "DELETE FROM usuario";
+            String zerarId = "DELETE FROM sqlite_sequence where name= '" + ConstantsUsuario.getTABELA() + "';";
+            
+         try {
+//            deletarStmt = connection.prepareStatement(deletar);
+            stmt = connection.prepareStatement(deletar);
+//            zerarStmt = connection.prepareStatement(zerarId);
+              stmt.executeUpdate();
+//            zerarStmt.executeQuery();
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }finally{
+            
+              try {
+                   stmt.close();
+//                deletarStmt.close();
+//                zerarStmt.close();
+                connection.close();
+            } catch (SQLException ex) {
+           
+            }
+            
+        }
+        
     }
     
 }

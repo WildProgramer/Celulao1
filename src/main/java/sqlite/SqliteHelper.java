@@ -51,7 +51,7 @@ public class SqliteHelper {
         try {
             stmt = Connector().createStatement();
             
-            stmt.execute(ConstansUsuario.criarTablea());
+            stmt.execute(ConstantsUsuario.criarTablea());
             
             System.out.println("Tabela Criada");
         } catch (SQLException ex) {

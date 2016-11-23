@@ -106,6 +106,12 @@ public class JDBCPedidoDAO implements PedidoDAO {
                 jSerieFormatedText.setText(String.valueOf(rs.getLong("serie")));
             
                 
+            }else{
+                jMarcaTextField.setText("");
+                jobservacaoTextPane.setText("");
+                jSerieFormatedText.setText("");
+                
+                
             }
             
             

@@ -130,5 +130,15 @@ public class TelaPrincipalController {
             
         
     }
+       
+       
+     //Deletar usuario do sqlite
+       public void deletarUsuarioSqlite(){
+           SqliteUsuariosAdapter sqliteUsuario = new SqliteUsuariosAdapter();
+           sqliteUsuario.deletarTudoDaTabela();
+          
+           
+           
+       }
 
 }

@@ -11,7 +11,7 @@ package sqlite;
  */
 
 //Esta classe contêm os dados que vão ser usados para trabalhar com a tabela do sqlite, e para criar a mesa
-public class ConstansUsuario {
+public class ConstantsUsuario {
 
     
     

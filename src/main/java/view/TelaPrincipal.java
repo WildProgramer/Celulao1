@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author PC
  */
-public class TelaPrincipal extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClienteTabela{
 
    private int idDaLinhaSelecionada;
    private TelaPrincipalController controller = new TelaPrincipalController();
@@ -33,7 +33,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
        
     }
     
-    public void refreshTable(){
+    public void atualizarTabela(){
         
         DefaultTableModel model = (DefaultTableModel) jClienteTable.getModel();
         model.setRowCount(0);
@@ -59,6 +59,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTecnico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jPrdidoTecnicoTable = new javax.swing.JTable();
         jAtendente = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jCadastrarUs = new javax.swing.JButton();
@@ -80,8 +82,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jBemOk = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu = new javax.swing.JMenu();
+        jMenuSairItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -124,21 +126,48 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel2.setText("Técnico");
 
+        jPrdidoTecnicoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "IdPedido", "Cliente", "Celular"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jPrdidoTecnicoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPrdidoTecnicoTableMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jPrdidoTecnicoTable);
+
         javax.swing.GroupLayout jTecnicoLayout = new javax.swing.GroupLayout(jTecnico);
         jTecnico.setLayout(jTecnicoLayout);
         jTecnicoLayout.setHorizontalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jTecnicoLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jLabel2)
-                .addContainerGap(699, Short.MAX_VALUE))
+                .addGroup(jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(192, Short.MAX_VALUE))
         );
         jTecnicoLayout.setVerticalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jTecnicoLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabel2)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         jPanel1.add(jTecnico, "tecnico");
@@ -162,19 +191,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
             new String [] {
                 "Id", "Nome", "Tipo", "Celular"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jClienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jClienteTableMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(jClienteTable);
-        if (jClienteTable.getColumnModel().getColumnCount() > 0) {
-            jClienteTable.getColumnModel().getColumn(0).setHeaderValue("Id");
-            jClienteTable.getColumnModel().getColumn(1).setHeaderValue("Nome");
-            jClienteTable.getColumnModel().getColumn(2).setHeaderValue("Tipo");
-            jClienteTable.getColumnModel().getColumn(3).setHeaderValue("Celular");
-        }
 
         jIdClienteMostrarLabel.setText("IdCliente");
 
@@ -325,17 +363,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, "bemvindo");
 
-        jMenu1.setText("Arquivo");
-
-        jMenuItem2.setText("Sair");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        jMenu.setText("Arquivo");
+        jMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                jMenuActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
 
-        jMenuBar1.add(jMenu1);
+        jMenuSairItem.setText("Sair");
+        jMenuSairItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuSairItemActionPerformed(evt);
+            }
+        });
+        jMenu.add(jMenuSairItem);
+
+        jMenuBar1.add(jMenu);
 
         jMenu2.setText("Editar");
         jMenuBar1.add(jMenu2);
@@ -360,9 +403,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void jMenuSairItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSairItemActionPerformed
+        controller.deletarUsuarioSqlite();
+        Login login = new Login();
+        
+        new TelaPrincipal().setVisible(false);
+        login.setVisible(true);        
+        
+    }//GEN-LAST:event_jMenuSairItemActionPerformed
 
     private void formComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_formComponentAdded
         // TODO add your handling code here:
@@ -419,6 +467,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jCadastrarPedidoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarPedidoBtnActionPerformed
         controller.cadastrarPedido(jIdClienteMostrarLabel, jMarcaTextField, jSerieFormatedText, jobservacaoTextPane);
     }//GEN-LAST:event_jCadastrarPedidoBtnActionPerformed
+
+    private void jMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuActionPerformed
+
+    private void jPrdidoTecnicoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPrdidoTecnicoTableMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPrdidoTecnicoTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -480,23 +536,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jMarcaTextField;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuSairItem;
     private javax.swing.JLabel jMostrarNomeLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JTable jPrdidoTecnicoTable;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JFormattedTextField jSerieFormatedText;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel jTecnico;
     private javax.swing.JTextPane jobservacaoTextPane;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void atualizarClienteCadastradoTabela() {
+       atualizarTabela();
+    }
 }

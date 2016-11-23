@@ -177,8 +177,7 @@ public class JDBCClienteDAO implements ClienteDAO {
             
             if(rs.next()){
                 
-                System.out.println(String.valueOf(rs.getInt("idCliente")));
-                System.out.println(rs.getString("nome"));
+             
                 
                 
                 idLabel.setText(String.valueOf(rs.getInt("idCliente")));
