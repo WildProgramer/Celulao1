@@ -21,7 +21,7 @@ public class Strings {
     
     //Strings Dao
     public static String usuarioExistente = "Este nome de usuário já esta cadastrado no sistema, por favor selecione outro";
-    public static String cadastrado = "Usuario cadastrado com sucesso";
+    public static String cadastrado = "Cadastrado com sucesso";
     public static Object erroExecutar = "Ocorreu um erro ao executar o processo";
     public static Object naoExiste = "Usuário ou senha inválidos";
     
@@ -32,6 +32,7 @@ public class Strings {
     
     //Faltando texto
     public static String preecherCampos = "Por favor preencher todos os campos";
+    public static Object selecionaCliente = "Por favor selecionar um cliente";
     
     
 }

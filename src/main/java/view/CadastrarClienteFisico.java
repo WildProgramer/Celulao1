@@ -126,8 +126,12 @@ public class CadastrarClienteFisico extends javax.swing.JFrame {
         try{
    controller.cadastrarClienteFisico(jnomeClienteTexField, jcpfFormattedTextField, jEnderecoTextField,jCelularTextField);
   
-        AtualizarClienteTabela atualizarClienteTabela = (AtualizarClienteTabela) this;
-        atualizarClienteTabela.atualizarClienteCadastradoTabela();
+//        AtualizarClienteTabela atualizarClienteTabela = (AtualizarClienteTabela) this;
+//        atualizarClienteTabela.atualizarClienteCadastradoTabela();
+            
+          TelaPrincipal telaPrincipal = new TelaPrincipal();
+          
+          telaPrincipal.atualizarClienteCadastradoTabela();
         }catch(NullPointerException e){
             
             

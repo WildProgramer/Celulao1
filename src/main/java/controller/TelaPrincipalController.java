@@ -54,11 +54,11 @@ public class TelaPrincipalController {
     }
 
     //Este método lista todos os clientes em um Jtable
-    public void listaClientes(JTable jTable1) {
+    public void listaClientes(JTable jTableClientes) {
         JDBCClienteDAO clienteDAO = new JDBCClienteDAO();
         ArrayList<Cliente> clienteArray;
         clienteArray = clienteDAO.listarClientes();
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model = (DefaultTableModel) jTableClientes.getModel();
         Object rowData[] = new Object[4];
 
         for (int i = 0; i < clienteArray.size(); i++) {
@@ -67,6 +67,27 @@ public class TelaPrincipalController {
             rowData[1] = clienteArray.get(i).getNome();
             rowData[2] = clienteArray.get(i).getTipo();
             rowData[3] = clienteArray.get(i).getCelular();
+            model.addRow(rowData);
+
+        }
+
+    }
+    
+        //Este método lista todos os pedidos em um Jtable
+       public void listarPedidos(JTable jTablePedidos){
+        
+        
+        JDBCPedidoDAO pedidoDAO = new JDBCPedidoDAO();
+        ArrayList<Pedido> pedidoArray;
+        pedidoArray = pedidoDAO.listarPedidos();
+        DefaultTableModel model = (DefaultTableModel) jTablePedidos.getModel();
+        Object rowData[] = new Object[4];
+
+        for (int i = 0; i < pedidoArray.size(); i++) {
+
+            rowData[0] = pedidoArray.get(i).getIdPedido();
+            rowData[1] = pedidoArray.get(i).getNome();
+            rowData[2] = pedidoArray.get(i).getCelular();
             model.addRow(rowData);
 
         }
@@ -81,42 +102,7 @@ public class TelaPrincipalController {
 
     }
 
-    //Este método cadastra o pedido
-    public void cadastrarPedido(JLabel jIdClienteMostrarLabel, JTextField jMarcaTextField,
-            JTextField jSerieFormatedText, JTextPane jobservacaoTextPane) {
-            Pedido pedido = new Pedido();
-            ConversorDeDadosController dadosController = new ConversorDeDadosController();
-            JDBCPedidoDAO jDBCPedidoDAO = new JDBCPedidoDAO();
-            
-            
-            try{
-            if(jMarcaTextField.getText().isEmpty() ||  
-                    jobservacaoTextPane.getText().isEmpty()){
-                
-                
-                JOptionPane.showMessageDialog(null, Strings.preecherCampos);
-                
-            }else{
-                
-                  pedido.setIdCliente(Long.valueOf(jIdClienteMostrarLabel.getText()));
-                  pedido.setMarca(jMarcaTextField.getText());
-                  pedido.setSerie(dadosController.converterCpf(jSerieFormatedText));
-                  pedido.setObservacao(jobservacaoTextPane.getText());
-                  jDBCPedidoDAO.inserirPedido(pedido);
-                 
-                
-                
-            }
-            }catch(NumberFormatException e){
-                
-                JOptionPane.showMessageDialog(null, Strings.preecherCampos);
-                
-            }catch(NullPointerException e){
-            JOptionPane.showMessageDialog(null, Strings.preecherCampos);
-
-            
-        }
-    }
+  
     
     //Mostrar pedido nos dados se existente
        public void mostrarPedidoQuandoSelecionado(String id, JTextField jMarcaTextField,
@@ -131,6 +117,15 @@ public class TelaPrincipalController {
         
     }
        
+      //Retorna o id da row do jtable 
+      public String retornarIdJTable(JTable jTable){
+          
+        int column = 0;
+        int row = jTable.getSelectedRow();
+        String value = jTable.getModel().getValueAt(row, column).toString();
+        
+        return value;
+      } 
        
      //Deletar usuario do sqlite
        public void deletarUsuarioSqlite(){

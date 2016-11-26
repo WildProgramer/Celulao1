@@ -14,7 +14,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import model.Cliente;
+import model.Strings;
 
 /**
  *
@@ -102,6 +104,7 @@ public class JDBCClienteDAO implements ClienteDAO {
             insertCliente.executeUpdate();
 
             connection.commit();
+            JOptionPane.showMessageDialog(null, Strings.cadastrado);
 
         } catch (SQLException ex) {
 
@@ -156,7 +159,14 @@ public class JDBCClienteDAO implements ClienteDAO {
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-        }
+        }finally{
+              
+            try {
+                listarCliente.close();
+            } catch (SQLException ex) {
+             
+            }
+          }
 
         return clienteArray;
     }

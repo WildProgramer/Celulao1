@@ -65,6 +65,9 @@ public class CadastrarClienteController {
          }else{
              
              clienteDAO.inserirFuncionario(c);
+             
+             
+             
          }
             
             
@@ -103,6 +106,9 @@ public class CadastrarClienteController {
          }else{
              
              clienteDAO.inserirFuncionario(c);
+             
+             
+             
          }
             
             
