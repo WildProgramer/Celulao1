@@ -32,7 +32,9 @@ public class Strings {
     
     //Faltando texto
     public static String preecherCampos = "Por favor preencher todos os campos";
-    public static Object selecionaCliente = "Por favor selecionar um cliente";
+    public static String selecionaCliente = "Por favor selecionar um cliente";
+    public static String selecionaPedido = "Por favor selecionar um pedido";
+    public static String valoresCorretos = "Por favor preencher todos os campos com valores corretos";
     
     
 }

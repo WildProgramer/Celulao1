@@ -84,10 +84,10 @@ public class JDBCClienteDAO implements ClienteDAO {
 
             if (idTipo == 0) {
 
-                String InsereTipo = "INSERT INTO tipocliente (tipocliente) VALUES "
+                String inserirTipoQuery = "INSERT INTO tipocliente (tipocliente) VALUES "
                         + "(?)";
 
-                insertTipoCliente = connection.prepareStatement(InsereTipo, Statement.RETURN_GENERATED_KEYS);
+                insertTipoCliente = connection.prepareStatement(inserirTipoQuery, Statement.RETURN_GENERATED_KEYS);
                 insertTipoCliente.setString(1, c.getTipo());
                 insertTipoCliente.executeUpdate();
                 idTipo = queryHelper.getLastId(insertTipoCliente);
@@ -122,6 +122,10 @@ public class JDBCClienteDAO implements ClienteDAO {
                 insertTipoCliente.close();
             } catch (SQLException ex) {
 
+            }catch (NullPointerException ex){
+                
+              
+                
             }
 
         }

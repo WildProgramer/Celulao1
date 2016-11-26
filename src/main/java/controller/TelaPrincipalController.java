@@ -6,7 +6,9 @@
 package controller;
 
 import dao.JDBCClienteDAO;
+import dao.JDBCOrcamentoDAO;
 import dao.JDBCPedidoDAO;
+import helper.ConverterStatusStringHelper;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 import model.Cliente;
+import model.Orcamento;
 import model.Pedido;
 import model.Strings;
 import sqlite.SqliteUsuariosAdapter;
@@ -88,6 +91,32 @@ public class TelaPrincipalController {
             rowData[0] = pedidoArray.get(i).getIdPedido();
             rowData[1] = pedidoArray.get(i).getNome();
             rowData[2] = pedidoArray.get(i).getCelular();
+            model.addRow(rowData);
+
+        }
+
+    }
+       
+       
+       //Este método lista todos os orçamentos de um pedido em um Jtable
+       public void listarOrcamentos(String idPedido, JTable jTableOrcamentos){
+        
+        
+        JDBCOrcamentoDAO orcamentoDAO = new JDBCOrcamentoDAO();
+        ArrayList<Orcamento> orcamentoArray;
+        orcamentoArray = orcamentoDAO.listarOrcamento(idPedido);
+        DefaultTableModel model = (DefaultTableModel) jTableOrcamentos.getModel();
+        Object rowData[] = new Object[4];
+
+        for (int i = 0; i < orcamentoArray.size(); i++) {
+
+            rowData[0] = orcamentoArray.get(i).getIdOrcamento();
+            rowData[1] = orcamentoArray.get(i).getPrecoTotal();
+            
+            String autoriza = ConverterStatusStringHelper.converterStatusParaString(orcamentoArray.get(i).getAutoriza());
+            String paga = ConverterStatusStringHelper.converterStatusParaString(orcamentoArray.get(i).getStatusPagamento());
+            rowData[2] = autoriza;
+            rowData[3] = paga;
             model.addRow(rowData);
 
         }

@@ -186,7 +186,7 @@ public class JDBCFuncionarioDAO implements FuncionarioDAO{
                 
             }catch(NullPointerException ex){
                 
-                System.out.println(ex.getMessage());
+                
             }
        }
        

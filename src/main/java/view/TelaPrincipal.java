@@ -15,36 +15,27 @@ import model.Strings;
  *
  * @author PC
  */
-public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClienteTabela{
+public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClienteTabela {
 
-  
-   private TelaPrincipalController controller = new TelaPrincipalController();
-   private String idDoJTableCliente = "";
-   private String idDoLTablePedido = "";
-    
-    
-    
+    private TelaPrincipalController controller = new TelaPrincipalController();
+    private String idDoJTableCliente = "";
+    private String idDoLTablePedido = "";
+
     public TelaPrincipal() {
         initComponents();
         CardLayout cl = (CardLayout) jPanel1.getLayout();
         cl.show(jPanel1, "bemvindo");
-        
-        
 
-
-
-       
     }
-    
-    public void atualizarTabela(){
-        
+
+    public void atualizarTabela() {
+
         DefaultTableModel model = (DefaultTableModel) jClienteTable.getModel();
         model.setRowCount(0);
         controller.listaClientes(jClienteTable);
-        
+
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,7 +54,10 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         jTecnico = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jPedidoTecnicoTable = new javax.swing.JTable();
+        jOrcametoTecnicoTable1 = new javax.swing.JTable();
+        jCadastrarOrcamentoBtn = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jPedidoTecnicoTable1 = new javax.swing.JTable();
         jAtendente = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jCadastrarUs = new javax.swing.JButton();
@@ -118,7 +112,37 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
 
         jLabel2.setText("Técnico");
 
-        jPedidoTecnicoTable.setModel(new javax.swing.table.DefaultTableModel(
+        jOrcametoTecnicoTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "IdOrcamento", "Valor", "Autorizado", "Pago"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jOrcametoTecnicoTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jOrcametoTecnicoTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(jOrcametoTecnicoTable1);
+
+        jCadastrarOrcamentoBtn.setText("Cadastrar Orçamento");
+        jCadastrarOrcamentoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCadastrarOrcamentoBtnActionPerformed(evt);
+            }
+        });
+
+        jPedidoTecnicoTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -134,32 +158,48 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
                 return canEdit [columnIndex];
             }
         });
-        jPedidoTecnicoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPedidoTecnicoTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPedidoTecnicoTableMouseClicked(evt);
+                jPedidoTecnicoTable1MouseClicked(evt);
             }
         });
-        jScrollPane4.setViewportView(jPedidoTecnicoTable);
+        jScrollPane5.setViewportView(jPedidoTecnicoTable1);
 
         javax.swing.GroupLayout jTecnicoLayout = new javax.swing.GroupLayout(jTecnico);
         jTecnico.setLayout(jTecnicoLayout);
         jTecnicoLayout.setHorizontalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jTecnicoLayout.createSequentialGroup()
+                .addContainerGap(399, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(137, 137, 137))
             .addGroup(jTecnicoLayout.createSequentialGroup()
-                .addGap(37, 37, 37)
+                .addGap(50, 50, 50)
                 .addGroup(jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(192, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(jCadastrarOrcamentoBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jTecnicoLayout.createSequentialGroup()
+                    .addGap(47, 47, 47)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(489, Short.MAX_VALUE)))
         );
         jTecnicoLayout.setVerticalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jTecnicoLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel2)
-                .addGap(38, 38, 38)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jCadastrarOrcamentoBtn)
+                .addGap(81, 81, 81))
+            .addGroup(jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jTecnicoLayout.createSequentialGroup()
+                    .addGap(95, 95, 95)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(133, Short.MAX_VALUE)))
         );
 
         jPanel1.add(jTecnico, "tecnico");
@@ -327,10 +367,10 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
     private void jMenuSairItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuSairItemActionPerformed
         controller.deletarUsuarioSqlite();
         Login login = new Login();
-        
+
         new TelaPrincipal().setVisible(false);
-        login.setVisible(true);        
-        
+        login.setVisible(true);
+
     }//GEN-LAST:event_jMenuSairItemActionPerformed
 
     private void formComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_formComponentAdded
@@ -341,65 +381,77 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         CadastrarClienteFisico cadastrarClienteF = new CadastrarClienteFisico();
         CadastrarClienteJuridico cadastrarClienteJ = new CadastrarClienteJuridico();
         String tipo = String.valueOf(jComboBox1.getSelectedItem());
-        
-        if(tipo.equals("Físico")){
+
+        if (tipo.equals("Físico")) {
             cadastrarClienteF.setVisible(true);
-           
-            
-        }else{
+
+        } else {
             cadastrarClienteJ.setVisible(true);
-            
+
         }
-        
+
     }//GEN-LAST:event_jCadastrarUsActionPerformed
 
     private void jBemOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBemOkActionPerformed
         controller.escolherTela(jPanel1);
         controller.listaClientes(jClienteTable);
-        controller.listarPedidos(jPedidoTecnicoTable);
+        controller.listarPedidos(jPedidoTecnicoTable1);
     }//GEN-LAST:event_jBemOkActionPerformed
 
     private void jClienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jClienteTableMouseClicked
-       
-        
-       idDoJTableCliente = controller.retornarIdJTable(jClienteTable);
-       
-       System.out.println(idDoJTableCliente);
-        
+
+        idDoJTableCliente = controller.retornarIdJTable(jClienteTable);
+
+        System.out.println(idDoJTableCliente);
+
     }//GEN-LAST:event_jClienteTableMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jClienteTable.getModel();
         model.setRowCount(0);
         controller.listaClientes(jClienteTable);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuActionPerformed
 
-    private void jPedidoTecnicoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPedidoTecnicoTableMouseClicked
-//        idDaLinhaSelecionada = jPedidoTecnicoTable.getSelectedRow();
-//        String idPedido = (jClienteTable.getModel().getValueAt(idDaLinhaSelecionada, 0).toString());
-       
-           idDoLTablePedido = controller.retornarIdJTable(jPedidoTecnicoTable);
-        
-        System.out.println(idDoLTablePedido);
-        
-    }//GEN-LAST:event_jPedidoTecnicoTableMouseClicked
+    private void jOrcametoTecnicoTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jOrcametoTecnicoTable1MouseClicked
+
+
+    }//GEN-LAST:event_jOrcametoTecnicoTable1MouseClicked
 
     private void jCadastrarPedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarPedidoButtonActionPerformed
-        if(idDoJTableCliente.isEmpty()){
-            
-           JOptionPane.showMessageDialog(null, Strings.selecionaCliente);
-    }else{
+        if (idDoJTableCliente.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, Strings.selecionaCliente);
+        } else {
             CadastrarPedido cadastrarPedido = new CadastrarPedido();
             cadastrarPedido.idDoCliente = this.idDoJTableCliente;
             cadastrarPedido.setVisible(true);
-            
+
         }
     }//GEN-LAST:event_jCadastrarPedidoButtonActionPerformed
+
+    private void jCadastrarOrcamentoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCadastrarOrcamentoBtnActionPerformed
+        if (idDoLTablePedido.isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, Strings.selecionaPedido);
+        } else {
+            CadastrarOrcamento cadastrarOrcamento = new CadastrarOrcamento();
+            cadastrarOrcamento.idPedido = this.idDoLTablePedido;
+            cadastrarOrcamento.setVisible(true);
+
+        }
+    }//GEN-LAST:event_jCadastrarOrcamentoBtnActionPerformed
+
+    private void jPedidoTecnicoTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPedidoTecnicoTable1MouseClicked
+        
+
+        idDoLTablePedido = controller.retornarIdJTable(jPedidoTecnicoTable1);
+        controller.listarOrcamentos(idDoLTablePedido, jOrcametoTecnicoTable1);
+    }//GEN-LAST:event_jPedidoTecnicoTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -431,24 +483,21 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-          
+
                 new TelaPrincipal().setVisible(true);
-            
+
                 System.out.println("second started too");
-                   
-                
-                
+
             }
         });
     }
 
- 
-  
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jAtendente;
     private javax.swing.JButton jBemOk;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jCadastrarOrcamentoBtn;
     private javax.swing.JButton jCadastrarPedidoButton;
     private javax.swing.JButton jCadastrarUs;
     private javax.swing.JTable jClienteTable;
@@ -461,19 +510,21 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuSairItem;
+    private javax.swing.JTable jOrcametoTecnicoTable1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTable jPedidoTecnicoTable;
+    private javax.swing.JTable jPedidoTecnicoTable1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel jTecnico;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void atualizarClienteCadastradoTabela() {
-       atualizarTabela();
+        atualizarTabela();
     }
 }
