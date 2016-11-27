@@ -14,10 +14,9 @@ import model.Strings;
 /**
  *
  *  NORBERT HERMANNO STRZYBNY - RA 20751165
- *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  CLAUS DE FREITAS LEITÃO - RA 20755234
  *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
-
 //Classe para conexão de banco de dados, tem um método estatico que serve como construtor para abrir a conexão com banco de dados
 public class ConnectionFactory {
     private static String url = "localhost";

@@ -26,7 +26,7 @@ import sqlite.SqliteUsuariosAdapter;
 /**
  *
  *  NORBERT HERMANNO STRZYBNY - RA 20751165
- *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  CLAUS DE FREITAS LEITÃO - RA 20755234
  *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
 //Esta classe ajuda nos demais na tela principal, como escolher qual tela entrar, e imprimir listas em um Jpanel

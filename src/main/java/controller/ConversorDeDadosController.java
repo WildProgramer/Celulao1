@@ -12,10 +12,9 @@ import javax.swing.JTextField;
 /**
  *
  *  NORBERT HERMANNO STRZYBNY - RA 20751165
- *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  CLAUS DE FREITAS LEITÃO - RA 20755234
  *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
-
 //Classe que convert os cpf, cnpj, números de série em números inteiros sem carácteres
 public class ConversorDeDadosController {
     

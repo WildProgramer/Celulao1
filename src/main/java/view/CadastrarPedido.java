@@ -6,11 +6,10 @@
 package view;
 
 import controller.CadastrarPedidoController;
-
 /**
  *
  *  NORBERT HERMANNO STRZYBNY - RA 20751165
- *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  CLAUS DE FREITAS LEITÃO - RA 20755234
  *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
 public class CadastrarPedido extends javax.swing.JFrame {

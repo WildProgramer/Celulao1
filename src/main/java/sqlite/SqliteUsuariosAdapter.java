@@ -15,7 +15,7 @@ import java.sql.SQLException;
 /**
  *
  *  NORBERT HERMANNO STRZYBNY - RA 20751165
- *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  CLAUS DE FREITAS LEITÃO - RA 20755234
  *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
 //Classe que ajuda a inserir dados, e buscar dados no sqlite
