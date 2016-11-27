@@ -90,6 +90,7 @@ public class LoginController {
         Usuario funcionario2 = new Usuario();
         JDBCFuncionarioDAO funcionarioDAO = new JDBCFuncionarioDAO();
         TelaPrincipal telaPrincipal = new TelaPrincipal();
+        Login login = new Login();
         
         boolean validado = false;
         if (usuarioLoginTextField.getText().isEmpty() || senhaLoginTextField.getText().isEmpty()) {
@@ -105,7 +106,7 @@ public class LoginController {
 
                 telaPrincipal.setVisible(true);
                 
-                new Login().setVisible(false);
+                login.setVisible(false);
             }
         
         
