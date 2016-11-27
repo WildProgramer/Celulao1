@@ -20,13 +20,18 @@ import model.Strings;
 
 //Classe para conexão de banco de dados, tem um método estatico que serve como construtor para abrir a conexão com banco de dados
 public class ConnectionFactory {
+    private static String url = "localhost";
+    private static String baseDeDados = "celulao";
+    private static String usuario = "root";
+    private static String senha = "";
+    
+    
     
     public static Connection getConnection(){
         try{
-//            TimeZone timeZone = TimeZone.getTimeZone("South_America/Brazil"); // 
-//            TimeZone.setDefault(timeZone);
+
             Class.forName("com.mysql.cj.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost/celulao?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
+            return DriverManager.getConnection("jdbc:mysql://"+ url +"/"+baseDeDados+"?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", ""+usuario+"", ""+senha+"");
             
             
         }catch (SQLException ex){
