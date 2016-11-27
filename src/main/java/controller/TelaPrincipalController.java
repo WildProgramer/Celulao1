@@ -12,7 +12,6 @@ import helper.ConverterStatusStringHelper;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -22,12 +21,13 @@ import javax.swing.table.DefaultTableModel;
 import model.Cliente;
 import model.Orcamento;
 import model.Pedido;
-import model.Strings;
 import sqlite.SqliteUsuariosAdapter;
 
 /**
  *
- * @author Norb7492
+ *  NORBERT HERMANNO STRZYBNY - RA 20751165
+ *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
 //Esta classe ajuda nos demais na tela principal, como escolher qual tela entrar, e imprimir listas em um Jpanel
 public class TelaPrincipalController {
@@ -106,6 +106,34 @@ public class TelaPrincipalController {
         ArrayList<Orcamento> orcamentoArray;
         orcamentoArray = orcamentoDAO.listarOrcamento(idPedido);
         DefaultTableModel model = (DefaultTableModel) jTableOrcamentos.getModel();
+        model.setRowCount(0);
+        Object rowData[] = new Object[4];
+
+        for (int i = 0; i < orcamentoArray.size(); i++) {
+
+            rowData[0] = orcamentoArray.get(i).getIdOrcamento();
+            rowData[1] = orcamentoArray.get(i).getPrecoTotal();
+            
+            String autoriza = ConverterStatusStringHelper.converterStatusParaString(orcamentoArray.get(i).getAutoriza());
+            String paga = ConverterStatusStringHelper.converterStatusParaString(orcamentoArray.get(i).getStatusPagamento());
+            rowData[2] = autoriza;
+            rowData[3] = paga;
+            model.addRow(rowData);
+
+        }
+
+    }
+       
+           //Este método lista todos os orçamentos de um pedido buscando pelo id do cliente em um Jtable
+       public void listarOrcamentosIdCliente(String idCliente, JTable jTableOrcamentos){
+        
+        
+        JDBCOrcamentoDAO orcamentoDAO = new JDBCOrcamentoDAO();
+        ArrayList<Orcamento> orcamentoArray;
+        
+        orcamentoArray = orcamentoDAO.listarOrcamentoPeloCliente(idCliente);
+        DefaultTableModel model = (DefaultTableModel) jTableOrcamentos.getModel();
+        model.setRowCount(0);
         Object rowData[] = new Object[4];
 
         for (int i = 0; i < orcamentoArray.size(); i++) {
@@ -145,6 +173,24 @@ public class TelaPrincipalController {
             
         
     }
+       
+       //Atualiza o status se o cliente autorizou
+       public void autorizaOrcamento(String idOrcamento){
+           
+           JDBCOrcamentoDAO orcamentoDAO = new JDBCOrcamentoDAO();
+           orcamentoDAO.autorizarOrcamento(idOrcamento);
+           
+           
+       }
+       
+          //Atualiza o status se o cliente pagou
+       public void clientePagou(String idOrcamento){
+           
+           JDBCOrcamentoDAO orcamentoDAO = new JDBCOrcamentoDAO();
+           orcamentoDAO.pagamentoEfetuado(idOrcamento);
+           
+           
+       }
        
       //Retorna o id da row do jtable 
       public String retornarIdJTable(JTable jTable){

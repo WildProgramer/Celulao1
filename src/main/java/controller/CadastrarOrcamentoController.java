@@ -6,7 +6,7 @@
 package controller;
 
 import dao.JDBCOrcamentoDAO;
-import javax.swing.JFormattedTextField;
+
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import model.Orcamento;
@@ -14,8 +14,11 @@ import model.Strings;
 
 /**
  *
- * @author Norb7492
+ *  NORBERT HERMANNO STRZYBNY - RA 20751165
+ *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
+
 public class CadastrarOrcamentoController {
     
     

@@ -13,13 +13,16 @@ import model.Strings;
 
 /**
  *
- * @author PC
+ *  NORBERT HERMANNO STRZYBNY - RA 20751165
+ *  CRISTIAN CARLOS ARANIBAR MONTANO - RA 20745554
+ *  VANESSA CRISTINA SILVA DE ALMEIDA - RA 20755535
  */
 public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClienteTabela {
 
     private TelaPrincipalController controller = new TelaPrincipalController();
     private String idDoJTableCliente = "";
     private String idDoLTablePedido = "";
+    private String idOrcamento = "";
 
     public TelaPrincipal() {
         initComponents();
@@ -66,6 +69,10 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         jClienteTable = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jCadastrarPedidoButton = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jOrcamentoAtendenteTable = new javax.swing.JTable();
+        jAutorizarButton = new javax.swing.JButton();
+        jPagamentoButton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jBemOk = new javax.swing.JButton();
@@ -170,7 +177,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         jTecnicoLayout.setHorizontalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jTecnicoLayout.createSequentialGroup()
-                .addContainerGap(399, Short.MAX_VALUE)
+                .addContainerGap(433, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(137, 137, 137))
             .addGroup(jTecnicoLayout.createSequentialGroup()
@@ -183,7 +190,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
                 .addGroup(jTecnicoLayout.createSequentialGroup()
                     .addGap(47, 47, 47)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(489, Short.MAX_VALUE)))
+                    .addContainerGap(523, Short.MAX_VALUE)))
         );
         jTecnicoLayout.setVerticalGroup(
             jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,14 +199,14 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
                 .addComponent(jLabel2)
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addComponent(jCadastrarOrcamentoBtn)
                 .addGap(81, 81, 81))
             .addGroup(jTecnicoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jTecnicoLayout.createSequentialGroup()
                     .addGap(95, 95, 95)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(133, Short.MAX_VALUE)))
+                    .addContainerGap(148, Short.MAX_VALUE)))
         );
 
         jPanel1.add(jTecnico, "tecnico");
@@ -260,6 +267,43 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
             }
         });
 
+        jOrcamentoAtendenteTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "idOrcamento", "Valor", "Autorizado", "Pago"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jOrcamentoAtendenteTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jOrcamentoAtendenteTableMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jOrcamentoAtendenteTable);
+
+        jAutorizarButton.setText("Autorizar");
+        jAutorizarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAutorizarButtonActionPerformed(evt);
+            }
+        });
+
+        jPagamentoButton.setText("Pagamento Efetuado");
+        jPagamentoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPagamentoButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jAtendenteLayout = new javax.swing.GroupLayout(jAtendente);
         jAtendente.setLayout(jAtendenteLayout);
         jAtendenteLayout.setHorizontalGroup(
@@ -268,32 +312,45 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
                 .addGap(44, 44, 44)
                 .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jAtendenteLayout.createSequentialGroup()
-                            .addComponent(jCadastrarUs)
-                            .addGap(18, 18, 18)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(32, 32, 32)
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCadastrarPedidoButton))
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(248, Short.MAX_VALUE))
+                    .addGroup(jAtendenteLayout.createSequentialGroup()
+                        .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCadastrarPedidoButton)
+                            .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(jAtendenteLayout.createSequentialGroup()
+                                    .addComponent(jCadastrarUs)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(47, 47, 47)
+                        .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jAtendenteLayout.createSequentialGroup()
+                                .addComponent(jAutorizarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPagamentoButton)))))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
         jAtendenteLayout.setVerticalGroup(
             jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jAtendenteLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
                 .addGroup(jAtendenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCadastrarUs)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jCadastrarPedidoButton))
-                .addGap(83, 83, 83))
+                    .addComponent(jAutorizarButton)
+                    .addComponent(jPagamentoButton))
+                .addGap(18, 18, 18)
+                .addComponent(jCadastrarPedidoButton)
+                .addGap(40, 40, 40))
         );
 
         jPanel1.add(jAtendente, "atendente");
@@ -316,7 +373,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jBemOk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(440, Short.MAX_VALUE))
+                .addContainerGap(537, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +382,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
                 .addComponent(jLabel3)
                 .addGap(68, 68, 68)
                 .addComponent(jBemOk)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, "bemvindo");
@@ -368,7 +425,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         controller.deletarUsuarioSqlite();
         Login login = new Login();
 
-        new TelaPrincipal().setVisible(false);
+        this.setVisible(false);
         login.setVisible(true);
 
     }//GEN-LAST:event_jMenuSairItemActionPerformed
@@ -402,7 +459,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
 
         idDoJTableCliente = controller.retornarIdJTable(jClienteTable);
 
-        System.out.println(idDoJTableCliente);
+       controller.listarOrcamentosIdCliente(idDoJTableCliente, jOrcamentoAtendenteTable);
 
     }//GEN-LAST:event_jClienteTableMouseClicked
 
@@ -453,6 +510,20 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
         controller.listarOrcamentos(idDoLTablePedido, jOrcametoTecnicoTable1);
     }//GEN-LAST:event_jPedidoTecnicoTable1MouseClicked
 
+    private void jAutorizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAutorizarButtonActionPerformed
+        controller.autorizaOrcamento(idOrcamento);
+    }//GEN-LAST:event_jAutorizarButtonActionPerformed
+
+    private void jOrcamentoAtendenteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jOrcamentoAtendenteTableMouseClicked
+        idOrcamento = controller.retornarIdJTable(jOrcamentoAtendenteTable);
+        
+        
+    }//GEN-LAST:event_jOrcamentoAtendenteTableMouseClicked
+
+    private void jPagamentoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPagamentoButtonActionPerformed
+        controller.clientePagou(idOrcamento);
+    }//GEN-LAST:event_jPagamentoButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -495,6 +566,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jAtendente;
+    private javax.swing.JButton jAutorizarButton;
     private javax.swing.JButton jBemOk;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jCadastrarOrcamentoBtn;
@@ -510,13 +582,16 @@ public class TelaPrincipal extends javax.swing.JFrame implements AtualizarClient
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuSairItem;
+    private javax.swing.JTable jOrcamentoAtendenteTable;
     private javax.swing.JTable jOrcametoTecnicoTable1;
+    private javax.swing.JButton jPagamentoButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTable jPedidoTecnicoTable1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable1;
